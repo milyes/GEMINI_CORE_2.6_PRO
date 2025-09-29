@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bannière Officielle | GEMINI CORE 2.6 PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cyber Core (Dark Navy/Black with Electric Cyan/Blue) -->
+    <!-- Application Structure Plan: Single-screen visual communication tool designed for high impact. Structure uses high-contrast typography and a central "Core" element to instantly convey security and advanced AI architecture. The layout is centered and uses minimal text for maximum readability on small screens/previews. -->
+    <!-- Visualization & Content Choices: Product Name -> Goal: Recognition -> Viz: Large, bold text (H1). Slogan -> Goal: Value Proposition -> Viz: Subtitle with blue accent. Core Visual -> Goal: Engagement -> Viz: Custom CSS/Tailwind glowing circle (NO SVG, NO Canvas). Justification: Aesthetic coherence with the tech theme. CONFIRMATION: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e; /* Dark background for context */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .banner-container {
+            /* Ideal aspect ratio for social media posts (e.g., 1200x628 pixels or 1.91:1) */
+            width: 100%;
+            max-width: 1200px;
+            height: 600px; /* Base height for a wide banner */
+            background: linear-gradient(135deg, #100f1c 0%, #1a1a2e 100%);
+            border: 2px solid #3b82f6; /* Subtle outer border */
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .banner-container {
+                height: 400px;
+            }
+        }
+        .glowing-core {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #3b82f6 0%, #06b6d4 50%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(20px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: pulse 4s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+        }
+        .text-content {
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner-container flex flex-col justify-center items-center p-10">
+        <!-- Visual Effect: Glowing Core -->
+        <div class="glowing-core"></div>
+        
+        <div class="text-content text-center relative z-10">
+            <!-- Main Title -->
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-black uppercase text-white tracking-tight leading-none mb-4" style="text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);">
+                GEMINI CORE
+            </h1>
+            <p class="text-3xl sm:text-4xl font-extrabold text-blue-400 mb-6">
+                2.6 PRO
+            </p>
+            
+            <!-- Key Slogan -->
+            <p class="text-xl sm:text-2xl text-gray-200 font-semibold max-w-2xl mx-auto border-t border-b border-gray-700 py-3">
+                L'Architecture **IA22 LOGIC** : Sécurité Cognitive et Adaptabilité en Temps Réel.
+            </p>
+        </div>
+
+        <!-- Footer / Attribution -->
+        <div class="absolute bottom-6 w-full text-center z-10">
+            <p class="text-sm font-medium text-gray-400">
+                Publication Officielle - Architecte Principal : **Zoubirou Mohammed Ilyes** (ORCID: 0009-0007-7571-3178)
+            </p>
+        </div>
+    </div>
+</body>
+</html>
