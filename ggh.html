@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographie | GEMINI CORE 2.6 PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling narrative infographic that guides the user through a logical story: The Problem (bots in gaming), The Solution (GEMINI CORE), How It Works (a visual flowchart of the IA22 LOGIC), and The Benefits (security, performance, experience). This structure is chosen to be more engaging and educational than a static post, breaking down a technical concept into a compelling, easy-to-follow journey for gamers and tech enthusiasts. -->
+    <!-- Visualization & Content Choices: How it Works -> Goal: Organize/Explain Process -> Viz: Flowchart using structured HTML/CSS -> Interaction: On-scroll fade-in animations to reveal steps sequentially. Justification: Visually explaining the AI detection process is far more effective than text alone and makes the core technology understandable. // Key Benefits -> Goal: Compare/Inform -> Viz: 3-column card layout with Unicode icons -> Interaction: Subtle hover effects. Justification: Cards effectively segment and highlight the three core value propositions for quick comprehension. CONFIRMATION: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8;
+            color: #0A2540;
+            scroll-behavior: smooth;
+        }
+        .section-title {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .flowchart-step {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .flowchart-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .flowchart-arrow {
+            height: 40px;
+            width: 2px;
+            background-color: #0060F7;
+            margin: 0.5rem auto;
+            position: relative;
+        }
+        .flowchart-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 10px solid #0060F7;
+        }
+        .benefit-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #E2E8F0;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-12 md:py-20">
+
+        <!-- Section 1: Hero -->
+        <header class="text-center max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl section-title bg-clip-text text-transparent bg-gradient-to-r from-[#0060F7] to-[#00D4FF]">
+                La Révolution du Gaming est Lancée !
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-gray-600">
+                Découvrez **GEMINI CORE 2.6 PRO** : le système de sécurité intelligent qui redéfinit l'équité et la performance dans le jeu en ligne.
+            </p>
+        </header>
+
+        <!-- Section 2: The Problem -->
+        <section class="mt-20 md:mt-28 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl section-title text-gray-800">Le Fléau du Jeu en Ligne</h2>
+            <p class="mt-4 text-gray-600">Les bots et les tricheurs gâchent l'expérience de millions de joueurs. Les systèmes anti-triche traditionnels peinent à suivre, laissant la porte ouverte à des parties injustes et frustrantes.</p>
+            <div class="flex justify-center space-x-8 md:space-x-12 mt-8 text-5xl md:text-6xl">
+                <div class="flex flex-col items-center">
+                    <span class="text-red-500">🤖</span>
+                    <p class="text-sm mt-2 font-semibold">Bots</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-red-500">😠</span>
+                    <p class="text-sm mt-2 font-semibold">Tricheurs</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-red-500">🔗</span>
+                    <p class="text-sm mt-2 font-semibold">Partage de Compte</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Solution -->
+        <section class="mt-20 md:mt-28 text-center max-w-3xl mx-auto">
+             <div class="inline-block bg-blue-100 text-[#0060F7] px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                LA SOLUTION
+            </div>
+            <h2 class="text-3xl md:text-4xl section-title text-gray-800">Voici GEMINI CORE 2.6 PRO</h2>
+            <p class="mt-4 text-gray-600">Plus qu'un simple anti-triche, c'est un gardien intelligent. En utilisant l'architecture d'IA avancée **IA22 LOGIC**, notre système ne se contente pas de chercher des signatures de triche connues ; il apprend et comprend le comportement unique de chaque joueur.</p>
+        </section>
+
+        <!-- Section 4: How It Works -->
+        <section class="mt-20 md:mt-28 max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-4xl section-title text-center text-gray-800">Comment Ça Marche ?</h2>
+            <p class="mt-4 text-center text-gray-600 mb-12">Le processus de détection est invisible, en temps réel, et basé sur une analyse comportementale unique.</p>
+            
+            <div class="flex flex-col items-center">
+                <!-- Step 1 -->
+                <div class="flowchart-step w-full text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <p class="font-semibold text-lg">1. Analyse en Temps Réel</p>
+                    <p class="text-sm text-gray-600 mt-1">Le système observe les actions du joueur (mouvements, clics, temps de réaction).</p>
+                </div>
+                <div class="flowchart-arrow"></div>
+
+                <!-- Step 2 -->
+                <div class="flowchart-step w-full text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <p class="font-semibold text-lg">2. Création de la Signature Comportementale</p>
+                    <p class="text-sm text-gray-600 mt-1">Le **MODULE ULTRAVISION** génère une "Signature" mathématique unique, propre au style de jeu de l'utilisateur.</p>
+                </div>
+                <div class="flowchart-arrow"></div>
+
+                <!-- Step 3 -->
+                <div class="flowchart-step w-full text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <p class="font-semibold text-lg">3. Comparaison et Décision IA</p>
+                    <p class="text-sm text-gray-600 mt-1">L'IA compare la signature actuelle à celle de référence. Toute déviation anormale est identifiée.</p>
+                </div>
+                <div class="flowchart-arrow"></div>
+                
+                <!-- Step 4 -->
+                <div class="flowchart-step w-full text-center p-8 bg-gradient-to-r from-[#0060F7] to-[#00D4FF] rounded-lg shadow-lg">
+                    <p class="font-bold text-xl text-white">4. Détection et Action</p>
+                    <p class="text-sm text-white/90 mt-1">Un bot ou un tricheur est instantanément détecté et isolé. Le jeu reste juste.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Benefits -->
+        <section class="mt-20 md:mt-28 max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl section-title text-center text-gray-800">Ce que Cela Change Pour Vous</h2>
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="benefit-card p-8 text-center">
+                    <span class="text-5xl">🛡️</span>
+                    <h3 class="font-semibold text-xl mt-4">Sécurité Garantie</h3>
+                    <p class="text-gray-600 mt-2">Détection ultra-rapide des tricheurs grâce à l'analyse vectorielle avancée, bien avant qu'ils ne puissent nuire.</p>
+                </div>
+                <div class="benefit-card p-8 text-center">
+                    <span class="text-5xl">⚙️</span>
+                    <h3 class="font-semibold text-xl mt-4">Performance Fiable</h3>
+                    <p class="text-gray-600 mt-2">Processus légers et sécurisés qui garantissent une stabilité maximale sans impacter vos performances de jeu.</p>
+                </div>
+                <div class="benefit-card p-8 text-center">
+                    <span class="text-5xl">😊</span>
+                    <h3 class="font-semibold text-xl mt-4">Expérience Optimisée</h3>
+                    <p class="text-gray-600 mt-2">Le système s'adapte en permanence pour garantir que vous jouez toujours dans un environnement sain et équitable.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Architect -->
+        <footer class="mt-20 md:mt-28 pt-12 border-t border-gray-300 text-center text-gray-500">
+            <p class="font-semibold">Une innovation de l'architecte principal :</p>
+            <p class="text-lg font-bold text-gray-800 mt-1">Zoubirou Mohammed Ilyes</p>
+            <p class="text-sm mt-1">ORCID : <span id="orcid" class="font-mono">0009-0007-7571-3178</span> 
+                <button id="copy-orcid" class="ml-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded">Copier</button>
+            </p>
+            <p class="text-xs mt-8">© 2025 GEMINI CORE</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Logic for on-scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const steps = document.querySelectorAll('.flowchart-step');
+            steps.forEach(step => observer.observe(step));
+
+            // Logic for ORCID copy button
+            const copyButton = document.getElementById('copy-orcid');
+            const orcidText = document.getElementById('orcid').innerText;
+            copyButton.addEventListener('click', () => {
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = orcidText;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextArea);
+
+                copyButton.innerText = 'Copié !';
+                setTimeout(() => {
+                    copyButton.innerText = 'Copier';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
+
