@@ -3,37 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONSOLEINVENTEUR - Capsule IA Souveraine V22.02</title>
-    <meta name="author" content="Mohammed Ilyes Zoubirou - 0009-0007-7571-3178">
+    <title>Tableau de Bord | GEMINI CORE 2.6 PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech -->
+    <!-- Application Structure Plan: A tabbed dashboard interface (Synthèse, Architecture, Applications, Automatisation) to provide a non-linear, user-driven exploration of the technical report. This structure breaks down complex information into interactive, digestible sections (e.g., clickable cards for modules, a radar chart for the framework pillars) to enhance user understanding and engagement over a simple linear document. -->
+    <!-- Visualization & Content Choices: IA22 Framework -> Goal: Compare -> Viz: Radar Chart (Chart.js) -> Interaction: Visual comparison of the three pillars' importance. Justification: A radar chart effectively shows the balance and strength of the multi-faceted security framework. // Modules -> Goal: Organize -> Viz: Interactive HTML cards -> Interaction: Click to expand/reveal details. Justification: Prevents information overload by showing high-level components first. // Scripts -> Goal: Inform -> Viz: Tabbed code blocks -> Interaction: Copy to clipboard. Justification: Clean presentation for technical users. CONFIRMATION: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        /* Styles pour simuler l'interface "souveraine" et terminale */
-        :root {
-            --color-primary: #00ff41; /* Vert Néo-Matrix/Traçabilité */
-            --color-bg: #1a1a1a;
-            --color-text: #e0e0e0;
-            --color-accent: #ff0077; /* Rose/Magenta pour l'activation */
-        }
         body {
-            background-color: var(--color-bg);
-            color: var(--color-primary);
-            font-family: 'Consolas', 'Monospace', monospace;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #2c3e50;
         }
-        .container {
-            width: 90%;
-            max-width: 800px;
-            border: 2px solid var(--color-primary);
-            padding: 20px;
-            box-shadow: 0 0 15px var(--color-primary);
+        .nav-item {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
-        h1 {
-            color: var(--color-accent);
+        .nav-item.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            height: 40vh;
+            max-height: 400px;
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #334155;
+            color: #94a3b8;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .process-step {
+            background-color: #f0f4f8;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             text-align: center;
-            border-bottom: 1px dashed var(--color-primary);
+            position: relative;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .arrow {
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        .arrow::after {
+            content: '▼';
+            color: #3b82f6;
+            font-size: 1.5rem;
+        }
+        .scenario-button {
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .scenario-button.active-scenario {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3), 0 2px 4px -2px rgba(16, 185, 129, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">GEMINI CORE 2.6 PRO</h1>
+            <p class="text-lg text-gray-500 mt-2">Tableau de Bord Interactif de la Fiche Technique</p>
+            <div class="inline-flex items-center bg-green-100 text-green-800 text-sm font-medium mt-4 px-3 py-1 rounded-full">
+                <span class="w-2 h-2 mr-2 bg-green-500 rounded-full"></span>
+                État : Publication Officielle (Sceau Cryptographique Vérifié)
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Auteur : Zoubirou Mohammed Ilyes | ORCID : 0009-0007-7571-3178</p>
+        </header>
+
+        <nav class="flex justify-center border-b border-gray-200 mb-8">
+            <button data-tab="synthese" class="nav-item active py-4 px-6 font-medium text-gray-600 hover:text-blue-500">Synthèse</button>
+            <button data-tab="architecture" class="nav-item py-4 px-6 font-medium text-gray-600 hover:text-blue-500">Architecture Détaillée</button>
+            <button data-tab="applications" class="nav-item py-4 px-6 font-medium text-gray-600 hover:text-blue-500">Domaines d'Application</button>
+            <button data-tab="automatisation" class="nav-item py-4 px-6 font-medium text-gray-600 hover:text-blue-500">Automatisation</button>
+        </nav>
+
+        <main>
+            <section id="synthese" class="content-section active">
+                 <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Cadre Architectural : IA22 LOGIC</h2>
+                    <p class="mt-2 text-gray-500 max-w-2xl mx-auto">Le module est construit sur le cadre de sécurité IA22 LOGIC, qui repose sur un équilibre entre trois piliers fondamentaux pour une intelligence augmentée robuste et fiable.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="ia22PillarsChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="card p-5">
+                            <h3 class="font-semibold text-lg text-blue-600">Réactivité</h3>
+                            <p class="text-gray-600 mt-1">Vitesse de détection et de réponse aux menaces, assurant un temps de latence minimal pour l'authentification comportementale via le IA22 TUNNEL.</p>
+                        </div>
+                        <div class="card p-5">
+                            <h3 class="font-semibold text-lg text-green-600">Résilience</h3>
+                            <p class="text-gray-600 mt-1">Capacité à maintenir les opérations en cas d'attaque ou de défaillance, garantie par des processus de déploiement et d'arrêt sécurisés.</p>
+                        </div>
+                        <div class="card p-5">
+                            <h3 class="font-semibold text-lg text-purple-600">Adaptabilité</h3>
+                            <p class="text-gray-600 mt-1">Évolution des mesures de sécurité face aux nouvelles menaces, en utilisant la Signature Vectorielle Active pour détecter les anomalies subtiles.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="architecture" class="content-section">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Spécifications des Modules Critiques</h2>
+                    <p class="mt-2 text-gray-500 max-w-2xl mx-auto">Explorez les composants principaux qui forment le cœur du GEMINI CORE 2.6 PRO. Chaque module joue un rôle distinct et essentiel dans l'architecture globale.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-gray-800">A. IA22 TUNNEL</h3>
+                        <p class="text-sm font-medium text-blue-500 mb-3">Cœur du Système</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>Rôle :</strong> Point d'entrée sécurisé pour les données, gérant chiffrement, non-répudiation et distribution des flux.</li>
+                            <li><strong>Technologie :</strong> Python 3 / TensorFlow Lite, WSS, JSON Dynamique.</li>
+                            <li><strong>Sécurité :</strong> Vérification obligatoire de la Signature de Requête (SHA-256) sur chaque message.</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-gray-800">B. MODULE ULTRAVISION</h3>
+                         <p class="text-sm font-medium text-green-500 mb-3">Moteur d'Analyse</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><strong>Algorithme Principal :</strong> NEREU (Réseau de Neurones Profonds — CNN/LSTM).</li>
+                            <li><strong>Fonction :</strong> Extraction des caractéristiques uniques (visuelles/comportementales) et leur compression.</li>
+                            <li><strong>Output Critique :</strong> Génération de la Signature Vectorielle Active (SVA), un vecteur mathématique normalisé (ex: 128D).</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-gray-800">C. MODULE RÉACTIF EMBOD</h3>
+                        <p class="text-sm font-medium text-purple-500 mb-3">Moteur de Décision</p>
+                        <ul class="space-y-2 text-gray-600">
+                           <li><strong>Fonction :</strong> Application du Code de Conduite IA22 et moteur de décision.</li>
+                           <li><strong>Logique :</strong> Calcule la Note de Dissimilarité entre la SVA actuelle et la SVA idéale via Distance Cosinus.</li>
+                           <li><strong>Output Sécurisé :</strong> Réponse au format JSON Sécurisé avec `security_context` et `credit_score`.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW SECTION: Adaptative Engine Flow -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <h2 class="text-2xl font-semibold text-gray-700 text-center mb-6">Moteur Adaptatif : Flux de Détection des Menaces</h2>
+                    <p class="mt-2 text-gray-500 text-center max-w-3xl mx-auto mb-8">Cette section détaille le mécanisme d'Adaptabilité et de Réactivité par lequel le système IA22 identifie une anomalie (Bot ou Partage de Compte) en comparant les empreintes vectorielles.</p>
+
+                    <!-- Interactive Scenario Selection -->
+                    <div class="flex justify-center space-x-4 mb-8">
+                        <p class="text-lg font-medium text-gray-700 self-center">Simuler un scénario :</p>
+                        <button id="scenario-normal" class="scenario-button active-scenario bg-white hover:bg-gray-50 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md border border-gray-300 transition-all">
+                            Utilisateur Normal
+                        </button>
+                        <button id="scenario-anomaly" class="scenario-button bg-white hover:bg-gray-50 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md border border-gray-300 transition-all">
+                            Anomalie Détectée
+                        </button>
+                    </div>
+
+                    <!-- Detection Process Flow -->
+                    <div class="max-w-4xl mx-auto">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                            <!-- Step 1: Data Acquisition -->
+                            <div class="process-step">
+                                <span class="text-3xl">🖨️</span>
+                                <h4 class="font-bold text-xl mt-2">1. IA22 TUNNEL</h4>
+                                <p class="text-sm text-gray-600 mt-1">Acquisition des données (Input) brutes du flux utilisateur.</p>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="arrow md:hidden"></div>
+                            <div class="hidden md:flex flex-col justify-center items-center">
+                                <span class="text-4xl text-blue-500">→</span>
+                            </div>
+
+                            <!-- Step 2: SVA Generation (ULTRAVISION) -->
+                            <div class="process-step">
+                                <span class="text-3xl">🔬</span>
+                                <h4 class="font-bold text-xl mt-2">2. MODULE ULTRAVISION</h4>
+                                <p class="text-sm text-gray-600 mt-1">Le modèle NEREU génère la **Signature Vectorielle Active (SVA)**.</p>
+                                <p class="font-mono text-xs mt-2 text-purple-600">SVA : [128D - Normé]</p>
+                            </div>
+
+                            <!-- Step 3: Decision & Score (EMBOD) -->
+                            <div class="arrow md:hidden"></div>
+                            <div class="hidden md:flex flex-col justify-center items-center">
+                                <span class="text-4xl text-blue-500">→</span>
+                            </div>
+
+                            <div class="process-step bg-purple-100 border-2 border-purple-500">
+                                <span class="text-3xl">⚖️</span>
+                                <h4 class="font-bold text-xl mt-2">3. MODULE RÉACTIF EMBOD</h4>
+                                <p class="text-sm text-gray-600 mt-1">Calcul de la Dissimilarité (Distance Cosinus).</p>
+                                <div class="mt-3">
+                                    <p class="text-xs font-semibold text-gray-700">Note de Dissimilarité (Seuil = 0.8) :</p>
+                                    <p id="dissimilarity-score" class="text-3xl font-extrabold text-green-600">0.05</p>
+                                </div>
+                                <p id="embod-decision" class="mt-2 text-sm font-bold text-green-700 bg-green-200 p-1 rounded">ACCÈS AUTORISÉ</p>
+                            </div>
+                        </div>
+
+                        <!-- Explanation Block -->
+                        <div class="mt-8 p-6 bg-white card">
+                            <h3 class="font-semibold text-lg text-gray-700">Explication du Mécanisme</h3>
+                            <p id="explanation-text" class="text-gray-600 mt-3 text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="applications" class="content-section">
+                 <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Intégration et Domaines d'Application</h2>
+                    <p class="mt-2 text-gray-500 max-w-2xl mx-auto">Découvrez comment la technologie IA22 s'intègre dans divers secteurs pour fournir une sécurité et une adaptation intelligentes.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card p-6 border-l-4 border-blue-500">
+                        <h3 class="text-lg font-semibold">Cybersécurité Cognitive</h3>
+                        <p class="mt-2 text-gray-600">Détection comportementale en temps réel des menaces comme les bots ou le partage de compte.</p>
+                        <p class="mt-4 font-mono text-sm bg-gray-100 p-2 rounded">API: POST /api/v2/auth/reflexes</p>
+                    </div>
+                    <div class="card p-6 border-l-4 border-green-500">
+                        <h3 class="text-lg font-semibold">Gaming Neuro-Adaptatif</h3>
+                        <p class="mt-2 text-gray-600">Adaptation dynamique du jeu selon la concentration et la fatigue du joueur pour une expérience immersive.</p>
+                        <p class="mt-4 font-mono text-sm bg-gray-100 p-2 rounded">API: POST /api/v2/cognitif/feedback</p>
+                    </div>
+                    <div class="card p-6 border-l-4 border-gray-400 opacity-60 bg-gray-50">
+                        <h3 class="text-lg font-semibold">Santé Connectée</h3>
+                        <p class="mt-2 text-gray-600">Interprétation et suivi des signaux neuro-moteurs pour des applications thérapeutiques.</p>
+                        <p class="mt-4 font-mono text-sm bg-red-100 text-red-700 p-2 rounded">STATUT : DÉSACTIVÉ</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="automatisation" class="content-section">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Automatisation et Maintenance</h2>
+                    <p class="mt-2 text-gray-500 max-w-2xl mx-auto">Le déploiement et la maintenance du système sont gérés par des scripts Bash intégrés pour garantir la résilience et la fiabilité.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="card p-6">
+                        <div class="flex border-b border-gray-200">
+                             <button data-script="lancement" class="script-tab active flex-1 py-2 text-center font-medium text-blue-600 border-b-2 border-blue-600">Lancement (html_lancerIA.sh)</button>
+                             <button data-script="arret" class="script-tab flex-1 py-2 text-center font-medium text-gray-500">Arrêt (html_arreterIA.sh)</button>
+                        </div>
+                        <div id="lancement" class="script-content active mt-4">
+                            <div class="code-block">
+                                <button class="copy-btn" data-clipboard-target="#scriptLancement">Copier</button>
+                                <code id="scriptLancement">#!/bin/bash
+IA22_TUNNEL_DIR="/opt/ia22/gemini_core_2.6"
+IA22_WEB_PORT="8080"
+NEREU_MODEL="nereu_lstm_v2.h5"
+PYTHON_ENV=".venv"
+LOG_FILE="/var/log/ia22_launch.log"
+
+echo "Démarrage du Cockpit Cognitif IA22..." | tee -a $LOG_FILE
+
+# 1. VÉRIFICATION DE L'INTÉGRITÉ
+if [ -d "$IA22_TUNNEL_DIR/$PYTHON_ENV" ]; then
+    source "$IA22_TUNNEL_DIR/$PYTHON_ENV/bin/activate"
+else
+    echo "[ERREUR IA22] Environnement Python non trouvé." | tee -a $LOG_FILE
+    exit 1
+fi
+if [ ! -f "$IA22_TUNNEL_DIR/models/$NEREU_MODEL" ]; then
+    echo "[ALERTE IA22] Modèle NEREU manquant." | tee -a $LOG_FILE
+    exit 2
+fi
+
+# 2. INITIALISATION ET LANCEMENT
+echo "[IA22 TUNNEL] Démarrage du moteur..." | tee -a $LOG_FILE
+nohup python "$IA22_TUNNEL_DIR/ia22_tunnel_server.py" > /dev/null 2>&1 &
+TUNNEL_PID=$!
+sleep 3
+
+echo "[IA22_WEB] Lancement de l'interface..." | tee -a $LOG_FILE
+cd "$IA22_TUNNEL_DIR/web_cockpit"
+nohup python -m http.server $IA22_WEB_PORT > /dev/null 2>&1 &
+WEB_PID=$!
+cd - > /dev/null
+
+# 3. VÉRIFICATION FINALE
+if ps -p $TUNNEL_PID > /dev/null && ps -p $WEB_PID > /dev/null; then
+    echo "[SUCCÈS] Tous les modules sont opérationnels." | tee -a $LOG_FILE
+else
+    echo "[ÉCHEC] Un ou plusieurs modules ont échoué." | tee -a $LOG_FILE
+    kill $TUNNEL_PID $WEB_PID 2>/dev/null
+    exit 3
+fi
+deactivate</code>
+                            </div>
+                        </div>
+                        <div id="arret" class="script-content mt-4" style="display: none;">
+                            <div class="code-block">
+                                <button class="copy-btn" data-clipboard-target="#scriptArret">Copier</button>
+                                <code id="scriptArret">#!/bin/bash
+IA22_WEB_PORT="8080"
+
+echo "Arrêt sécurisé du Cockpit Cognitif IA22..."
+
+# 1. ARRÊT DU SERVEUR WEB
+WEB_PID=$(lsof -t -i :$IA22_WEB_PORT)
+if [ ! -z "$WEB_PID" ]; then
+    echo "[IA22_WEB] Arrêt de l'interface (PID: $WEB_PID)..."
+    kill $WEB_PID
+    sleep 2
+else
+    echo "[IA22_WEB] Aucune interface Web trouvée."
+fi
+
+# 2. ARRÊT DU TUNNEL IA
+TUNNEL_PID=$(ps aux | grep 'ia22_tunnel_server.py' | grep -v grep | awk '{print $2}')
+if [ ! -z "$TUNNEL_PID" ]; then
+    echo "[IA22 TUNNEL] Arrêt du moteur (PID: $TUNNEL_PID)..."
+    kill $TUNNEL_PID
+    sleep 5
+else
+    echo "[IA22 TUNNEL] Moteur IA déjà arrêté."
+fi
+
+echo "[SUCCÈS] L'arrêt sécurisé IA22 est terminé."</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === target) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            const scriptTabs = document.querySelectorAll('.script-tab');
+            const scriptContents = document.querySelectorAll('.script-content');
+
+            scriptTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-script');
+
+                    scriptTabs.forEach(t => {
+                        t.classList.remove('active', 'text-blue-600', 'border-blue-600');
+                        t.classList.add('text-gray-500');
+                    });
+                    tab.classList.add('active', 'text-blue-600', 'border-blue-600');
+                     tab.classList.remove('text-gray-500');
+
+                    scriptContents.forEach(content => {
+                        content.style.display = 'none';
+                        if (content.id === target) {
+                            content.style.display = 'block';
+                        }
+                    });
+                });
+            });
+            
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetSelector = button.getAttribute('data-clipboard-target');
+                    const targetElement = document.querySelector(targetSelector);
+                    const textToCopy = targetElement.innerText;
+                    
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = textToCopy;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+
+                    button.innerText = 'Copié!';
+                    setTimeout(() => {
+                        button.innerText = 'Copier';
+                    }, 2000);
+                });
+            });
+
+            // --- IA22 Adaptative Engine Logic ---
+            const scoreDisplay = document.getElementById('dissimilarity-score');
+            const decisionDisplay = document.getElementById('embod-decision');
+            const explanationText = document.getElementById('explanation-text');
+            const btnNormal = document.getElementById('scenario-normal');
+            const btnAnomaly = document.getElementById('scenario-anomaly');
+            
+            const THRESHOLD = 0.8; 
+
+            const scenarios = {
+                normal: {
+                    score: "0.05",
+                    decision: "ACCÈS AUTORISÉ",
+                    scoreColor: "text-green-600",
+                    decisionColor: "text-green-700 bg-green-200",
+                    text: "Lorsque l'utilisateur est **Normal**, la SVA générée par ULTRAVISION est très proche de la SVA de référence (idéale) de l'utilisateur. La **Distance Cosinus** est donc faible (proche de 0), ce qui se traduit par une **Note de Dissimilarité** inférieure au seuil critique (" + THRESHOLD + "). Le MODULE EMBOD accorde l'accès immédiatement."
+                },
+                anomaly: {
+                    score: "0.92",
+                    decision: "ALERTE SÉCURITÉ - REFUSÉ",
+                    scoreColor: "text-red-600",
+                    decisionColor: "text-red-700 bg-red-200",
+                    text: "Dans un scénario d'**Anomalie Détectée** (Bot ou Partage de Compte), la SVA générée est très éloignée de la SVA idéale. La **Distance Cosinus** est élevée (proche de 1), ce qui génère une **Note de Dissimilarité** supérieure au seuil critique (" + THRESHOLD + "). Le MODULE EMBOD envoie une alerte et refuse l'accès, garantissant l'Adaptabilité du CORE."
+                }
+            };
+
+            function updateScenario(scenarioKey) {
+                const scenario = scenarios[scenarioKey];
+                
+                scoreDisplay.textContent = scenario.score;
+                
+                // Update decision text and color
+                decisionDisplay.textContent = scenario.decision;
+                decisionDisplay.className = `mt-2 text-sm font-bold p-1 rounded ${scenario.decisionColor}`;
+                
+                // Update explanation text (using innerHTML for bolding)
+                explanationText.innerHTML = scenario.text;
+                
+                // Update button styles
+                btnNormal.classList.remove('active-scenario');
+                btnAnomaly.classList.remove('active-scenario');
+                
+                // Update score color and button activation
+                scoreDisplay.classList.remove('text-red-600', 'text-green-600');
+                if (scenarioKey === 'normal') {
+                    btnNormal.classList.add('active-scenario');
+                    btnAnomaly.classList.remove('active-scenario');
+                } else {
+                    btnAnomaly.classList.add('active-scenario');
+                    btnNormal.classList.remove('active-scenario');
+                }
+                scoreDisplay.classList.add(scenario.scoreColor);
+            }
+
+            btnNormal.addEventListener('click', () => updateScenario('normal'));
+            btnAnomaly.addEventListener('click', () => updateScenario('anomaly'));
+            
+            // --- Chart.js Initialization ---
+            const ctx = document.getElementById('ia22PillarsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Réactivité', 'Résilience', 'Adaptabilité'],
+                    datasets: [{
+                        label: 'Principes IA22 LOGIC',
+                        data: [9, 8, 9.5],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                },
+                                color: '#2c3e50'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(248, 247, 244, 1)',
+                                color: '#6b7280'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           display: false
+                        }
+                    }
+                }
+            });
+
+            // Initialize with the normal scenario after setup
+            updateScenario('normal');
+        });
+    </script>
+</body>
+</html>
             padding-bottom: 10px;
             font-size: 1.5em;
         }
