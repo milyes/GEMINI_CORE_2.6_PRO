@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Archive Orbitronique – GEMINI CORE 2.6 PRO</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 2em;
+    }
+    h1, h2 { color: #00eaff; }
+    a { color: #ff9800; text-decoration: none; }
+    .badge { margin-top: 2em; border: 1px solid #444; }
+    .section { margin-bottom: 3em; }
+    code { background: #222; padding: 0.2em 0.4em; border-radius: 4px; }
+    footer { margin-top: 4em; font-size: 0.9em; color: #888; }
+  </style>
+</head>
+<body>
+  <h1>🪐 Archive Orbitronique – GEMINI CORE 2.6 PRO</h1>
+  <p><strong>Version :</strong> 2.6<br>
+     <strong>Auteur :</strong> Zoubirou Mohammed Ilyes<br>
+     <strong>ORCID :</strong> 0009-0007-7571-3178<br>
+     <strong>Identifiant :</strong> GC2.6-PRO<br>
+     <strong>Horodatage :</strong> 2025-10-12T19:04:25Z<br>
+     <strong>SHA256 :</strong> <code>8c347d...f12b</code></p>
+
+  <div class="section">
+    <h2>📄 PDF Institutionnel</h2>
+    <a href="GEMINI_CORE_26_PRO_251012_190425.pdf" target="_blank">Télécharger le PDF scellé</a>
+  </div>
+
+  <div class="section">
+    <h2>🌀 Badge Orbitronique avec QR</h2>
+    <img class="badge" src=".trace/GEMINI_CORE_2.6_PRO_badge_qr.svg" alt="Badge QR" width="720" />
+  </div>
+
+  <div class="section">
+    <h2>🧬 Graphe Mermaid – Certification CI/CD</h2>
+    <div class="mermaid">
+      graph TD
+        A[🚀 Push main / Release] --> B[📚 Code + METADATA.json]
+        B --> C[📦 create_zip.py]
+        C --> E(💾 Artefact ZIP)
+        B --> D[🔑 update_hash.py]
+        D --> F{📝 SHA256 dans METADATA.json}
+        F --> G[✍️ Commit Auto]
+        G --> H[✅ verify_core_v2.py]
+        H --> I{❓ Code de sortie}
+        I -- 0 --> K[⬆️ Upload JSON]
+        I -- 1 --> L[🚨 Alerte Slack]
+        H --> J(📄 verification_result.json)
+        J --> K
+        K --> N[🏁 Fin]
+        L --> M[🔍 Analyse]
+        M --> N
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📁 Artefacts Orbitroniques</h2>
+    <ul>
+      <li><a href=".trace/GEMINI_CORE_2.6_PRO_trace_202510121455.json">Trace JSON</a></li>
+      <li><a href=".trace/GEMINI_CORE_2.6_PRO_badge.svg">Badge SVG</a></li>
+      <li><a href=".trace/GEMINI_CORE_2.6_PRO_badge.png">Badge PNG</a></li>
+      <li><a href="GEMINI_CORE_2.6_PRO_DOCS.zip">ZIP scellé</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Document archivé et scellé par pulsation orbitronique<br>
+       Zoubirou Mohammed Ilyes – ORCID 0009-0007-7571-3178<br>
+       GEMINI CORE 2.6 PRO @ 2025 NetSecurePro IA</p>
+  </footer>
+</body>
+</html>
