@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie IA22+ - Artefacts Souverains</title>
+<style>
+  body {
+    background: radial-gradient(circle at center, #0d0d0d, #1a1a1a);
+    color: #e0e0e0;
+    font-family: "Orbitron", sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .artefact-card {
+    background: rgba(30,30,30,0.85);
+    border: 2px solid #00ffff;
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1.5rem;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .artefact-card:hover {
+    transform: scale(1.05);
+  }
+
+  .badge {
+    background: #00ffff;
+    color: #0d0d0d;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+
+  .seal {
+    font-size: 0.7rem;
+    color: #ff00ff;
+    margin-top: 0.8rem;
+    display: block;
+    word-break: break-all;
+  }
+
+  .qr-code {
+    margin-top: 0.5rem;
+  }
+
+  .audio-placeholder {
+    margin-top: 1rem;
+    color: #00ffcc;
+    font-size: 0.85rem;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  a {
+    color: #ffcc00;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<!-- Exemple de carte artefact -->
+<div class="artefact-card">
+  <h3>veo-2.0-generate-001</h3>
+  <p>Visuel | Génération et édition avancée</p>
+  <div class="badge">Orbitronique</div>
+  <img src="artefact-preview-veo.png" alt="Preview">
+  <a href="README-veo.html" target="_blank">README</a>
+  <span class="seal">SHA256: 3a7f4c8e9b2d1f...abcd1234</span>
+  <div class="qr-code">
+    <img src="qr-veo.png" alt="QR Code Artefact">
+  </div>
+  <div class="audio-placeholder">Narration Audio : <em>gemini-2.5-pro tts pending</em></div>
+</div>
+
+<div class="artefact-card">
+  <h3>gemini-2.5-pro</h3>
+  <p>Raisonnement | Générateur de scripts souverains</p>
+  <div class="badge">Sceau de Logique</div>
+  <img src="artefact-preview-gemini.png" alt="Preview">
+  <a href="README-gemini.html" target="_blank">README</a>
+  <span class="seal">SHA256: b9c4f2d1a7e5...efgh5678</span>
+  <div class="qr-code">
+    <img src="qr-gemini.png" alt="QR Code Artefact">
+  </div>
+  <div class="audio-placeholder">Narration Audio : <em>gemini-2.5-flash-native-audio pending</em></div>
+</div>
+
+<!-- Ajouter ici les autres modèles de la constellation -->
+
+</body>
+</html>
