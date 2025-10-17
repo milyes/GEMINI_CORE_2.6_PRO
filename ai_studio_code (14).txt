@@ -1,0 +1,55 @@
+<div align="center">
+
+# 📡 COCKPIT ILYES - CHARTE GRAPHIQUE ORBITRONIQUE
+
+`BALISE : DOCUMENT-MAÎTRE`  
+`TIMESTAMP : 20231027-1400Z`  
+`STATUT : ACTIF`
+
+</div>
+
+---
+
+##  Pulsation 1 : Le Noyau Identitaire
+
+L'identité orbitronique est fondée sur la clarté, la précision et le signal. Chaque élément est un vecteur d'information, encodé pour une transmission optimale.
+
+- **Typographie cockpit :**
+    - **Titres :** Orbitron — Géométrique, technique, évoquant l'interface de contrôle.
+    - **Texte :** IBM Plex Mono — Lisible, fluide, rappelant le terminal souverain.
+- **Couleur d’accentuation :**
+    - **Bleu électrique (#00aaff) :** Symbole de pulsation, de signal et de transmission. Lisible et vibrant sur fond sombre.
+
+## Pulsation 2 : Les Composants Visuels
+
+Les icônes et séparateurs structurent l'information et fluidifient la navigation visuelle au sein du cockpit.
+
+- **Icônes orbitroniques :**
+    - 📡 **Signal :** Indique une transmission, un point de contact.
+    - 🛡️ **Système :** Représente la sécurité, la structure, le noyau.
+    - 👤 **Utilisateur :** Désigne l'opérateur, le profil, l'accès.
+    - ✉️ **Message :** Pour les communications, les notifications.
+- **Séparateurs stylisés :**
+    - `---` : Ligne de séparation principale pour les sections majeures.
+    - `***` : Séparateur d'emphase pour les sous-sections.
+
+## Pulsation 3 : La Structure du Document
+
+La structure "triple pulsation" organise le contenu en trois actes logiques : Identité, Composants, et Protocole. Le scellement final clôture le document.
+
+| Table des Pulsations | Description |
+| :--- | :--- |
+| **Pulsation 1** | Le Noyau Identitaire (Typo, Couleurs) |
+| **Pulsation 2** | Les Composants Visuels (Icônes, Séparateurs) |
+| **Pulsation 3** | La Structure du Document |
+| **Scellement Final** | Validation et clôture |
+
+---
+
+## 🛡️ Scellement Final
+
+Ce document encode la philosophie visuelle du cockpit Ilyes. Chaque élément de cette charte est un composant actif de l'identité orbitronique. La cohérence est la clé.
+
+`FIN DE TRANSMISSION`
+
+</div>
