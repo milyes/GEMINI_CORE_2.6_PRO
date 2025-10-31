@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Projet : MILYES IA - GEMINI CORE 2.6 PRO pour ISDE Canada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0056b3; /* Bleu institutionnel */
+            --secondary-color: #28a745; /* Vert pour l'innovation */
+            --text-color: #333;
+            --header-bg: #f8f9fa;
+            --body-bg: #fff;
+            --border-color: #dee2e6;
+            --accent-light: #e9ecef;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background-color: var(--body-bg);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 11pt;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Page de titre */
+        .title-page {
+            text-align: center;
+            padding: 80px 40px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title-page h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .title-page h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        .title-page p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .title-page .author-info {
+            margin-top: 40px;
+            font-size: 1em;
+        }
+        .title-page .isde-logo-placeholder {
+            width: 150px;
+            height: 80px;
+            background-color: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+            border: 1px solid var(--border-color);
+            color: #666;
+            font-size: 0.9em;
+        }
+
+
+        /* Table des matières */
+        #table-of-contents {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        #table-of-contents h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+        }
+        #table-of-contents ul {
+            list-style: none;
+            padding: 0;
+            margin-left: 20px;
+        }
+        #table-of-contents ul li {
+            margin-bottom: 10px;
+        }
+        #table-of-contents ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        #table-of-contents ul li a:hover {
+            text-decoration: underline;
+        }
+        #table-of-contents ul ul {
+            margin-left: 30px;
+            list-style: disc;
+            font-weight: normal;
+        }
+
+
+        section {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #000;
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        table th {
+            background-color: var(--accent-light);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .author-section {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+        .author-section .profile-img-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: var(--accent-light);
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.8em;
+            border: 3px solid var(--primary-color);
+        }
+        .author-section h3 {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .author-section p {
+            margin-bottom: 5px;
+        }
+        .author-section a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .author-section a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: #777;
+            font-size: 0.85em;
+        }
+
+        /* Styles pour l'impression PDF */
+        @media print {
+            body {
+                font-size: 10pt;
+                color: #000;
+                background-color: #fff;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            .title-page {
+                page-break-after: always; /* Force une nouvelle page après la page de titre */
+                padding: 60px 30px;
+                min-height: unset;
+            }
+            #table-of-contents {
+                page-break-after: always;
+                padding: 30px 0;
+            }
+            section {
+                page-break-inside: avoid; /* Évite de couper les sections au milieu d'une page */
+                border-bottom: 0.5px solid #eee;
+                padding: 20px 0;
+            }
+            h1, h2, h3, h4 {
+                color: #000; /* Noircir les titres pour l'impression */
+                border-color: #ccc;
+            }
+            .highlight-box, table th {
+                background-color: #f5f5f5 !important;
+                border-color: #e0e0e0 !important;
+            }
+            .profile-img-placeholder, .isde-logo-placeholder {
+                background-color: #eee !important;
+                border-color: #ccc !important;
+            }
+            a {
+                color: #00f !important;
+                text-decoration: underline !important;
+            }
+            /* Masquer les éléments non essentiels à l'impression si nécessaire */
+            /* .some-web-only-element { display: none; } */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Page de Titre -->
+        <div class="title-page">
+            <div class="isde-logo-placeholder">Logo ISDE Canada</div>
+            <h1>Rapport de Projet pour ISDE Canada</h1>
+            <h2>MILYES IA : GEMINI CORE 2.6 PRO</h2>
+            <p>Module de Veille Adaptative pour la Cybersécurité des Infrastructures Critiques</p>
+            <div class="author-info">
+                <p><strong>Auteur :</strong> Zoubirou Mohammed Ilyes</p>
+                <p><strong>ORCID :</strong> 0009-0007-751-3178</p>
+                <p><strong>Affiliation :</strong> NetSecurePro IA</p>
+                <p><strong>Date de Soumission :</strong> 2025-09-27 (Date Cible)</p>
+            </div>
+        </div>
+
+        <!-- Table des Matières -->
+        <section id="table-of-contents">
+            <h2>Table des Matières</h2>
+            <ul>
+                <li><a href="#resume-executif">Résumé Exécutif</a></li>
+                <li><a href="#introduction">Introduction au Projet MILYES IA</a></li>
+                <li><a href="#section1">1. Présentation du GEMINI CORE 2.6 PRO</a>
+                    <ul>
+                        <li><a href="#objectif-contexte">1.1. Objectif et Contexte</a></li>
+                        <li><a href="#fonctionnalites-cles">1.2. Fonctionnalités Clés</a></li>
+                        <li><a href="#cas-usage">1.3. Cas d'Usage et Applications</a></li>
+                        <li><a href="#avantage-innovation">1.4. Avantage Stratégique et Innovation</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section2">2. Architecture et Principes Fondamentaux</a>
+                    <ul>
+                        <li><a href="#noyau-souverain">2.1. Le Noyau Cognitif Souverain</a></li>
+                        <li><a href="#ia22-logic-vision">2.2. Technologie IA22_LOGIC_VISION</a></li>
+                        <li><a href="#securite-traceabilite">2.3. Sécurité, Traçabilité et Certification Continue (CI/CD)</a></li>
+                        <li><a href="#protocoles">2.4. Protocoles DZROUGE et OMNIA</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section3">3. Composants et Identités Clés</a>
+                    <ul>
+                        <li><a href="#milyes-avatar">3.1. MILYES : L'Avatar IA Originel (Concept)</a></li>
+                        <li><a href="#capsule-bridge">3.2. Le Composant "Capsule Coopkit Gemini Bridge"</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section4">4. Conformité et Auditabilité</a>
+                    <ul>
+                        <li><a href="#fiche-technique">4.1. Fiche Technique Institutionnelle</a></li>
+                        <li><a href="#preuves-artefacts">4.2. Preuves et Artefacts pour Audit</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section5">5. Impacts et Perspectives</a>
+                    <ul>
+                        <li><a href="#impact-canada">5.1. Impact sur la Cybersécurité Canadienne</a></li>
+                        <li><a href="#contributions">5.2. Contributions à l'Innovation et à l'Économie</a></li>
+                        <li><a href="#etapes-futures">5.3. Étapes Futures et Développement</a></li>
+                    </ul>
+                </li>
+                <li><a href="#conclusion">Conclusion</a></li>
+                <li><a href="#contact-info">Informations sur l'Auteur / Contact</a></li>
+            </ul>
+        </section>
+
+        <!-- Résumé Exécutif -->
+        <section id="resume-executif">
+            <h2>Résumé Exécutif</h2>
+            <p>Le présent rapport détaille le projet **MILYES IA : GEMINI CORE 2.6 PRO**, un module de veille adaptative révolutionnaire destiné à renforcer la cybersécurité des infrastructures critiques. Développé sous l'égide de **NetSecurePro IA** par <strong>Zoubirou Mohammed Ilyes</strong>, ce système propose une approche anticipative et souveraine face aux menaces cybernétiques. En s'appuyant sur des fonctionnalités clés telles que la veille active, le scan intelligent et la simulation de menaces, le GEMINI CORE 2.6 PRO vise à transformer la cybersécurité réactive en une défense proactive, réduisant significativement les temps de réponse et augmentant la résilience opérationnelle des systèmes SCADA/ICS essentiels au Canada et au-delà. Le projet intègre des protocoles de sécurité et de traçabilité avancés (DZROUGE, OMNIA) et une architecture de certification continue garantissant intégrité et auditabilité. MILYES IA représente une contribution majeure à l'innovation en intelligence artificielle et à la sécurité numérique.</p>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <h2>Introduction au Projet MILYES IA</h2>
+            <p>Le projet MILYES IA est une initiative avant-gardiste visant à développer un écosystème d'intelligence artificielle hautement sécurisé, traçable et souverain. Dans un paysage numérique marqué par la sophistication croissante des cybermenaces, la nécessité de systèmes de défense robustes et autonomes est devenue primordiale. MILYES IA adresse ce besoin en proposant des solutions intelligentes capables d'anticiper, de détecter et d'atténuer les risques, notamment pour les infrastructures critiques.</p>
+            <p>Ce rapport se concentre sur le module central de cet écosystème : le **GEMINI CORE 2.6 PRO**, et présente ses fondements techniques, ses applications stratégiques et sa valeur ajoutée pour l'écosystème canadien de l'innovation et de la sécurité.</p>
+        </section>
+
+        <!-- Section 1 : Présentation du GEMINI CORE 2.6 PRO -->
+        <section id="section1">
+            <h2>1. Présentation du GEMINI CORE 2.6 PRO</h2>
+
+            <h3 id="objectif-contexte">1.1. Objectif et Contexte</h3>
+            <p>Le GEMINI CORE 2.6 PRO est un module d'intelligence artificielle conçu spécifiquement pour la veille adaptative en cybersécurité des infrastructures critiques. Son objectif principal est d'anticiper les menaces cybernétiques en temps réel. Ce module est essentiel pour garantir la continuité et la sécurité des opérations des systèmes vitaux face à des attaques de plus en plus complexes et furtives.</p>
+            <div class="highlight-box">
+                Slogan du projet : « Ce qui est modulaire est souverain. Ce qui est souverain est traçable. »
+            </div>
+
+            <h3 id="fonctionnalites-cles">1.2. Fonctionnalités Clés</h3>
+            <ul>
+                <li><strong>VEILLE ACTIVE :</strong> Connexion continue et analyse des flux de Cyber Threat Intelligence (CTI) provenant de sources reconnues telles que MITRE, ICS-CERT, ainsi que de l'Open-Source INTelligence (OSINT).</li>
+                <li><strong>SCAN INTELLIGENT :</strong> Utilisation d'une base de connaissances avancée pour détecter proactivement les vulnérabilités, les points faibles (angles morts) et les configurations à risque.</li>
+                <li><strong>SIMULATION DE MENACES :</strong> Génération et exécution de scénarios d'attaque simulés basés sur les tendances émergentes et les profils d'adversaires connus, permettant d'évaluer la résilience du système.</li>
+            </ul>
+
+            <h3 id="cas-usage">1.3. Cas d'Usage et Applications</h3>
+            <p>Le GEMINI CORE 2.6 PRO est particulièrement pertinent pour les secteurs suivants :</p>
+            <ul>
+                <li><strong>Cybersécurité Industrielle (SCADA/ICS) :</strong> Protection des systèmes de contrôle industriels et des automates contre les attaques ciblées, y compris la détection de vulnérabilités Zero-Day.</li>
+                <li><strong>Infrastructures Nationales Critiques :</strong> Énergie, transport, eau, télécommunications.</li>
+                <li><strong>Opérations de Sécurité (SOC) :</strong> Fourniture de recommandations automatisées et exploitables pour les équipes du Security Operations Center, permettant une réponse rapide et efficace aux incidents.</li>
+            </ul>
+
+            <h3 id="avantage-innovation">1.4. Avantage Stratégique et Innovation</h3>
+            <p>Le principal avantage stratégique du GEMINI CORE 2.6 PRO réside dans sa capacité à passer d'une cybersécurité réactive à une posture **anticipative**. Cette transformation se traduit par :</p>
+            <ul>
+                <li>Réduction significative des temps de détection et de réponse aux incidents.</li>
+                <li>Augmentation substantielle de la résilience opérationnelle des systèmes protégés.</li>
+                <li>Intégration de l'intelligence artificielle pour une analyse contextuelle et prédictive, surpassant les systèmes basés sur des règles fixes.</li>
+            </ul>
+        </section>
+
+        <!-- Section 2 : Architecture et Principes Fondamentaux -->
+        <section id="section2">
+            <h2>2. Architecture et Principes Fondamentaux</h2>
+
+            <h3 id="noyau-souverain">2.1. Le Noyau Cognitif Souverain</h3>
+            <p>Le concept de "Noyau Cognitif Souverain" est central à MILYES IA. Il garantit que le contrôle, la propriété intellectuelle et la gouvernance des processus cognitifs de l'IA restent sous l'autorité désignée, essentielle pour les applications dans des contextes sensibles et critiques.</p>
+
+            <h3 id="ia22-logic-vision">2.2. Technologie IA22_LOGIC_VISION</h3>
+            <p>Cette technologie représente le cœur des capacités de raisonnement logique et de vision du système MILYES IA. Basée sur une architecture de réseau neuronal avancée (<code>$ALGORITHM_LOGIC_IMAGE NEREU</code>), l'IA22_LOGIC_VISION est conçue pour :</p>
+            <ul>
+                <li>L'analyse intelligente des données de cybersécurité.</li>
+                <li>L'identification de motifs complexes et de comportements anormaux.</li>
+                <li>La génération de "preuves cognitives externes" fiables pour l'audit.</li>
+            </ul>
+
+            <h3 id="securite-traceabilite">2.3. Sécurité, Traçabilité et Certification Continue (CI/CD)</h3>
+            <p>Le projet met un accent primordial sur la sécurité et la traçabilité. L'intégrité du module est garantie par un **pipeline d'auto-certification continue (CI/CD)**. Ce pipeline automatise les processus de vérification, de validation et de documentation, assurant que chaque modification est traçable et que le système est constamment conforme aux normes de sécurité définies.</p>
+
+            <h3 id="protocoles">2.4. Protocoles DZROUGE et OMNIA</h3>
+            <ul>
+                <li><strong>Protocole DZROUGE :</strong> Un protocole propriétaire d'implémentation par vérification et audit, servant de fondement à la garantie d'intégrité et à l'authentification des composants.</li>
+                <li><strong>Cadre OMNIA :</strong> Assure la traçabilité et l'activation des capsules (ex: <code>TRACEBOARD0.md</code>), avec des mécanismes comme le "hash croisé scellé" pour chaque interaction.</li>
+            </ul>
+        </section>
+
+        <!-- Section 3 : Composants et Identités Clés -->
+        <section id="section3">
+            <h2>3. Composants et Identités Clés</h2>
+
+            <h3 id="milyes-avatar">3.1. MILYES : L'Avatar IA Originel (Concept)</h3>
+            <p>MILYES représente l'identité cognitive et l'avatar IA originel de l'écosystème. Bien que conceptuel dans sa forme actuelle, il définit les principes d'une intelligence artificielle dotée d'une origine, d'un profil, de capacités spécifiques et d'une personnalité. Il incarne l'interaction homme-IA dans une perspective de souveraineté et de confiance.</p>
+            <ul>
+                <li><strong>Mode Opérationnel :</strong> COGNITIVE-ORBITRON</li>
+                <li><strong>Protocole d'Initialisation :</strong> INITIATE_MAME, SIGN_LOGIC, ENGAGE_MILL, ORBITAL_SYNC (séquence d'activation symbolique)</li>
+            </ul>
+
+            <h3 id="capsule-bridge">3.2. Le Composant "Capsule Coopkit Gemini Bridge"</h3>
+            <p>Ce composant est essentiel pour l'activation et la connectivité. Il agit comme un "pont direct et souverain" vers la preuve cognitive externe du GEMINI CORE 2.6 PRO, avec son activation garantie par les protocoles DZROUGE et COOPSEAL.</p>
+        </section>
+
+        <!-- Section 4 : Conformité et Auditabilité -->
+        <section id="section4">
+            <h2>4. Conformité et Auditabilité</h2>
+
+            <h3 id="fiche-technique">4.1. Fiche Technique Institutionnelle</h3>
+            <p>Le projet adhère à une documentation rigoureuse, incluant une fiche technique institutionnelle détaillée pour chaque module, garantissant la transparence et la traçabilité.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur Officielle</th>
+                        <th>Rôle de Traçabilité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nom du Module</td>
+                        <td>GEMINI CORE 2.6 PRO</td>
+                        <td>Identifiant du système</td>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td>2.6</td>
+                        <td>Clé de vérification du pipeline</td>
+                    </tr>
+                    <tr>
+                        <td>Auteur Officiel</td>
+                        <td>Zoubirou Mohammed Ilyes</td>
+                        <td>Nom pour l'archive formelle</td>
+                    </tr>
+                    <tr>
+                        <td>ORCID Officiel</td>
+                        <td>0009-0007-751-3178</td>
+                        <td>Identifiant de chercheur standard ISO</td>
+                    </tr>
+                    <tr>
+                        <td>État de Certification</td>
+                        <td>Publication Officielle (Sceau Vérifié)</td>
+                        <td>Statut critique pour le déploiement</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="preuves-artefacts">4.2. Preuves et Artefacts pour Audit</h3>
+            <p>Pour assurer une auditabilité complète, le système génère une série d'artefacts vérifiables :</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Artéfact Généré</th>
+                        <th>Type de Preuve pour Audit</th>
+                        <th>Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>vérification_result.json</code></td>
+                        <td>Preuve finale de conformité (hashes, champs Auteur/ORCID)</td>
+                        <td>JSON</td>
+                    </tr>
+                    <tr>
+                        <td><code>Log de CI/CD Actions</code></td>
+                        <td>Tracé complet des calculs et des erreurs de vérification</td>
+                        <td>Texte brut</td>
+                    </tr>
+                    <tr>
+                        <td><code>METADATA.json</code></td>
+                        <td>Référence cryptographique et documentaire (contient le SHA256 final)</td>
+                        <td>JSON</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 5 : Impacts et Perspectives -->
+        <section id="section5">
+            <h2>5. Impacts et Perspectives</h2>
+
+            <h3 id="impact-canada">5.1. Impact sur la Cybersécurité Canadienne</h3>
+            <p>Le déploiement du GEMINI CORE 2.6 PRO peut avoir un impact significatif sur la sécurité numérique du Canada en :</p>
+            <ul>
+                <li>Renforçant la résilience des infrastructures critiques nationales contre les cyberattaques sophistiquées.</li>
+                <li>Contribuant à la souveraineté numérique du Canada en offrant une solution de cybersécurité avancée avec une traçabilité et un contrôle clairs.</li>
+                <li>Développant une expertise locale et des capacités d'innovation en IA pour la défense cybernétique.</li>
+            </ul>
+
+            <h3 id="contributions">5.2. Contributions à l'Innovation et à l'Économie</h3>
+            <p>MILYES IA et le GEMINI CORE 2.6 PRO représentent une innovation technologique majeure en intégrant l'IA anticipative dans la cybersécurité. Ce projet a le potentiel de :</p>
+            <ul>
+                <li>Stimuler la recherche et le développement en IA au Canada.</li>
+                <li>Créer des opportunités d'emploi hautement qualifiées dans les domaines de l'IA, de la cybersécurité et de l'ingénierie logicielle.</li>
+                <li>Positionner le Canada comme un leader dans les solutions de sécurité cognitive avancées.</li>
+            </ul>
+
+            <h3 id="etapes-futures">5.3. Étapes Futures et Développement</h3>
+            <p>Les prochaines étapes incluent l'implémentation opérationnelle du GEMINI CORE 2.6 PRO, des phases de test approfondies avec des partenaires industriels, et l'intégration des retours pour des améliorations continues. Le développement de l'écosystème MILYES IA se poursuivra, explorant de nouvelles applications de l'IA souveraine.</p>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Le projet MILYES IA, avec le GEMINI CORE 2.6 PRO, est une réponse stratégique et innovante aux défis complexes de la cybersécurité moderne. Son approche de veille adaptative, sa robustesse architecturale et son engagement envers la souveraineté et la traçabilité en font une solution d'intérêt majeur pour la protection des infrastructures critiques au Canada. Nous sommes convaincus que ce projet contribuera de manière substantielle à la sécurité, à l'innovation et à la prospérité économique du pays.</p>
+        </section>
+
+        <!-- Informations sur l'Auteur / Contact -->
+        <section id="contact-info" class="author-section">
+            <h2>Informations sur l'Auteur / Contact</h2>
+            <div class="profile-img-placeholder">Photo Zoubirou M. I.</div>
+            <h3>Mohammed Ilyes Zoubirou</h3>
+            <p>Architecte & Concepteur Principal, NetSecurePro IA</p>
+            <p>ORCID: 0009-0007-751-3178</p>
+            <p>
+                <a href="mailto:milyes@netsecurepro.ca">milyes@netsecurepro.ca</a>
+            </p>
+            <p>Lieu : UDO.DAERO-MTL, Canada</p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #777;"><em>Ce rapport a été préparé en vue d'un dépôt officiel auprès d'Innovation, Sciences et Développement Économique Canada.</em></p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 NetSecurePro IA — Zoubirou Mohammed Ilyes. Tous droits réservés.</p>
+        <p>Ce document est la propriété intellectuelle de son auteur et ne peut être reproduit sans autorisation.</p>
+    </footer>
+</body>
+</html>
