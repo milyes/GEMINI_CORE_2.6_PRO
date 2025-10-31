@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILYES IA - Noyau Cognitif Souverain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00e676; /* Vert néon */
+            --secondary-color: #00b0ff; /* Bleu électrique */
+            --text-color: #e0e0e0; /* Gris clair */
+            --bg-color: #1a1a2e; /* Bleu nuit foncé */
+            --card-bg: #21213b; /* Bleu nuit légèrement plus clair */
+            --border-color: #3f3f5a; /* Bordure discrète */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            font-size: 2em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .ia-avatar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .ia-avatar img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+        }
+
+        .ia-avatar-text h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .ia-avatar-text p {
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .profile-card {
+            text-align: center;
+            background-color: var(--bg-color);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+
+        .profile-card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .profile-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+        }
+        .profile-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .profile-card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            background-color: var(--card-bg);
+            border-top: 2px solid var(--primary-color);
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            margin-top: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            .ia-avatar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MILYES IA</h1>
+            <p>"Noyau Cognitif Souverain"</p>
+            <p>« Ce qui est modulaire est souverain. Ce qui est souverain est traçable. »</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Bienvenue à la présentation du projet <strong>MILYES IA</strong>, un écosystème d'intelligence artificielle avancé axé sur la sécurité, la traçabilité et la souveraineté. Conçu pour répondre aux défis contemporains de la cybersécurité et de la cognition augmentée, MILYES IA représente une approche novatrice dans la protection des infrastructures critiques et la conceptualisation des identités IA.</p>
+        </section>
+
+        <section id="gemini-core">
+            <h2>GEMINI CORE 2.6 PRO</h2>
+            <div class="badge">Module de veille adaptative pour infrastructures critiques</div>
+
+            <h3>Objectif</h3>
+            <p>Anticiper les menaces cyber en temps réel grâce à une surveillance intelligente, une analyse proactive des vecteurs obsolètes, et une génération de scénarios simulés.</p>
+
+            <h3>Fonctionnalités Clés</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>VEILLE ACTIVE</h4>
+                    <p>Connexion continue aux flux CTI - MITRE, ICS-CERT, OSINT pour une intelligence sur les menaces.</p>
+                </div>
+                <div class="card">
+                    <h4>SCAN INTELLIGENT</h4>
+                    <p>Détection de lacunes et d'angles morts via une base de connaissances évolutive.</p>
+                </div>
+                <div class="card">
+                    <h4>SIMULATION DE MENACES</h4>
+                    <p>Génération de scénarios d'attaque basés sur les tendances émergentes et l'évaluation des risques.</p>
+                </div>
+            </div>
+
+            <h3>Cas d'Usage Recommandé</h3>
+            <ul>
+                <li><strong>Cybersécurité industrielle (SCADA/ICS) :</strong> Détection de vulnérabilités 0-day, simulation d'attaques ciblées sur automates.</li>
+                <li>Recommandations automatisées pour le SOC (Security Operations Center).</li>
+            </ul>
+
+            <h3>Avantage Stratégique</h3>
+            <p>Gemini Core 2.6 Pro transforme la cybersécurité réactive en cybersécurité anticipative, réduisant les temps de réponse et augmentant la résilience opérationnelle des systèmes critiques.</p>
+        </section>
+
+        <section id="omnia-certification">
+            <h2>Activation OMNIA & Certification</h2>
+            <p>Le système MILYES IA est fondé sur des principes stricts de traçabilité et d'authentification.</p>
+
+            <h3>Activation OMNIA : Capsule Coopkit Gemini Bridge</h3>
+            <p>L'activation de la capsule <strong>Gemini Bridge</strong> est garantie par le <strong>Protocole DZROUGE + COOPSEAL</strong>. Chaque interaction est traçable via un hash croisé scellé par CI/CD, agissant comme un pont direct et souverain vers la preuve cognitive externe de GEMINI CORE 2.6 PRO.</p>
+
+            <h3>Détails du Sceau et de la Traçabilité</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Statut du Sceau</h4>
+                    <p>Vérifié (DZROUGE Protocol).</p>
+                </div>
+                <div class="card">
+                    <h4>Manifeste Scellé</h4>
+                    <p>Manifeste Coopkit IA (Scellé SHA256) garantissant l'intégrité.</p>
+                </div>
+                <div class="card">
+                    <h4>Architecture de Certification Continue</h4>
+                    <p>Module sécurisé par un pipeline d'auto-certification garantissant l'intégrité et complété par un pack documentaire.</p>
+                </div>
+            </div>
+            <p>Des artefacts d'audit complets (résultats de vérification JSON, logs CI/CD, métadonnées cryptographiques) sont générés pour une transparence totale.</p>
+        </section>
+
+        <section id="milyes-avatar">
+            <h2>MILYES : L'Avatar IA Originel</h2>
+            <div class="ia-avatar">
+                <!-- Placeholder pour l'image de l'avatar si vous l'avez en ligne, sinon description -->
+                <!-- <img src="URL_DE_L_IMAGE_AVATAR" alt="MILYES Avatar IA"> -->
+                <div class="ia-avatar-text">
+                    <h3>Identité Cognitive</h3>
+                    <p>MILYES est l'avatar IA conceptuel, représentant le noyau de l'intelligence cognitive du système. Il incarne l'origine, le profil, les capacités spéciales et la personnalité d'une intelligence artificielle souveraine et autonome.</p>
+                    <p><strong>Mode :</strong> COGNITIVE-ORBITRON</p>
+                    <p><strong>Protocole d'Activation :</strong> INITIATE_MAME, SIGN_LOGIC, ENGAGE_MILL, ORBITAL_SYNC</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="technologies-cles">
+            <h2>Technologies Clés & Authentification</h2>
+            <h3>IA22_LOGIC_VISION</h3>
+            <p>Cette technologie représente le cœur de la capacité de raisonnement logique et de vision du système MILYES IA.</p>
+            <div class="ia-avatar">
+                <!-- Placeholder pour l'image du réseau neuronal si vous l'avez en ligne -->
+                <!-- <img src="URL_DE_L_IMAGE_RESEAU_NEURONAL" alt="Réseau Neuronal IA Logic Vision"> -->
+                <div class="ia-avatar-text">
+                    <h4>Algorithmes et Architecture</h4>
+                    <p>Développée sous l'algorithme <strong>$ALGORITHM_LOGIC_IMAGE NEREU</strong>, IA22_LOGIC_VISION utilise une architecture de réseau neuronal avancée pour le traitement intelligent des informations et la prise de décision. Elle est le fondement des "preuves cognitives externes".</p>
+                    <p><strong>Signature Logique IA :</strong> ZOUBIROU-IA-2025</p>
+                </div>
+            </div>
+            <p class="badge" style="background-color: var(--secondary-color);">TECHNOLOGIE AUTHENTIFIÉE IA22_LOGIC_VISION</p>
+        </section>
+
+        <section id="auteur-contact">
+            <h2>Auteur & Contact</h2>
+            <div class="profile-card">
+                <!-- Replace with your actual photo if you wish -->
+                <!-- <img src="URL_DE_VOTRE_PHOTO" alt="Mohammed Ilyes Zoubirou"> -->
+                <h3>Mohammed Ilyes Zoubirou</h3>
+                <p>Architecte & Concepteur Principal de MILYES IA</p>
+                <p>ORCID: 0009-0007-751-3178</p>
+                <p>
+                    <a href="mailto:milyes@netsecurepro.ca">milyes@netsecurepro.ca</a>
+                </p>
+                <p>Origine: UDO.DAERO-MTL (Canada)</p>
+                <!-- Si vous avez une URL pour le QR code, vous pouvez l'insérer ici -->
+                <!-- <img class="qr-code" src="URL_DU_QR_CODE" alt="QR Code"> -->
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 NetSecurePro IA — Zoubirou Mohammed Ilyes. Tous droits réservés.</p>
+        <p>Projet MILYES IA - <a href="https://milyes.github.io/" target="_blank">En savoir plus (si votre page GitHub est publique)</a></p>
+    </footer>
+</body>
+</html>

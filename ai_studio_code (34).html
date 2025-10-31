@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILYES IA - Documentation Officielle : GEMINI CORE 2.6 PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00e676; /* Vert néon */
+            --secondary-color: #00b0ff; /* Bleu électrique */
+            --text-color: #e0e0e0; /* Gris clair */
+            --bg-color: #1a1a2e; /* Bleu nuit foncé */
+            --card-bg: #21213b; /* Bleu nuit légèrement plus clair */
+            --border-color: #3f3f5a; /* Bordure discrète */
+            --accent-bg-light: #3a3a5a;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            font-size: 2em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--bg-color);
+        }
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: var(--accent-bg-light);
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+        }
+        table td {
+            font-size: 0.95em;
+        }
+
+        .ia-avatar-concept {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+            background-color: var(--bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .ia-avatar-concept .avatar-img-placeholder {
+            min-width: 150px;
+            height: 150px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.8em;
+            text-align: center;
+            border: 2px solid var(--primary-color);
+        }
+
+        .ia-avatar-concept .content {
+            flex: 1;
+            min-width: 300px;
+        }
+        .ia-avatar-concept .content h3 {
+            margin-top: 0;
+        }
+
+        .profile-card {
+            text-align: center;
+            background-color: var(--bg-color);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+
+        .profile-card .profile-img-placeholder {
+            width: 180px;
+            height: 180px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.8em;
+            text-align: center;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+        }
+
+
+        .profile-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .profile-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .profile-card a:hover {
+            text-decoration: underline;
+        }
+
+        .qr-code-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: #555;
+            margin: 15px auto 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.7em;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            background-color: var(--card-bg);
+            border-top: 2px solid var(--primary-color);
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            

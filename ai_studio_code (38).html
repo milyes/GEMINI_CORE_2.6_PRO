@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILYES IA - Documentation Officielle : GEMINI CORE 2.6 PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00e676; /* Vert néon */
+            --secondary-color: #00b0ff; /* Bleu électrique */
+            --text-color: #e0e0e0; /* Gris clair */
+            --bg-color: #1a1a2e; /* Bleu nuit foncé */
+            --card-bg: #21213b; /* Bleu nuit légèrement plus clair */
+            --border-color: #3f3f5a; /* Bordure discrète */
+            --accent-bg-light: #3a3a5a;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            font-size: 2em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--bg-color);
+        }
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: var(--accent-bg-light);
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+        }
+        table td {
+            font-size: 0.95em;
+        }
+
+        .ia-avatar-concept {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+            background-color: var(--bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .ia-avatar-concept .avatar-img-placeholder {
+            min-width: 150px;
+            height: 150px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.8em;
+            text-align: center;
+            border: 2px solid var(--primary-color);
+        }
+
+        .ia-avatar-concept .content {
+            flex: 1;
+            min-width: 300px;
+        }
+        .ia-avatar-concept .content h3 {
+            margin-top: 0;
+        }
+
+        .profile-card {
+            text-align: center;
+            background-color: var(--bg-color);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+
+        .profile-card .profile-img-placeholder {
+            width: 180px;
+            height: 180px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.8em;
+            text-align: center;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+        }
+
+
+        .profile-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .profile-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .profile-card a:hover {
+            text-decoration: underline;
+        }
+
+        .qr-code-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: #555;
+            margin: 15px auto 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.7em;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            background-color: var(--card-bg);
+            border-top: 2px solid var(--primary-color);
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            .ia-avatar-concept {
+                flex-direction: column;
+                text-align: center;
+            }
+            .ia-avatar-concept .avatar-img-placeholder {
+                margin-bottom: 15px;
+            }
+        }
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                font-size: 10pt;
+            }
+            header, section, footer {
+                background-color: #fff;
+                color: #000;
+                box-shadow: none;
+                border: none;
+                padding: 10px;
+                margin: 10px 0;
+            }
+            h1, h2, h3, h4 {
+                color: #000;
+                text-shadow: none;
+                border-color: #ccc;
+            }
+            .badge, .card {
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                color: #000;
+            }
+            table th {
+                background-color: #e0e0e0;
+                color: #000;
+            }
+            .ia-avatar-concept .avatar-img-placeholder, .profile-card .profile-img-placeholder, .qr-code-placeholder {
+                background-color: #eee;
+                border-color: #ccc;
+            }
+            a {
+                color: #00f !important;
+                text-decoration: underline;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MILYES IA</h1>
+            <p>Documentation Officielle : GEMINI CORE 2.6 PRO</p>
+            <p>« Ce qui est modulaire est souverain. Ce qui est souverain est traçable. »</p>
+            <p style="font-size:0.9em; margin-top:15px;">Date de Publication : 2025-09-27</p>
+            <p style="font-size:0.9em;">Référence : Noyau Cognitif Souverain V2.6 PRO</p>
+        </header>
+
+        <section id="fiche-technique">
+            <h2>1. Fiche Technique Institutionnelle & Traçabilité</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur Officielle</th>
+                        <th>Rôle de Traçabilité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nom du Module</td>
+                        <td>GEMINI CORE 2.6 PRO</td>
+                        <td>Identifiant du système</td>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td>2.6</td>
+                        <td>Clé de vérification du pipeline</td>
+                    </tr>
+                    <tr>
+                        <td>Auteur Officiel</td>
+                        <td>Zoubirou Mohammed Ilyes</td>
+                        <td>Nom pour l'archive formelle</td>
+                    </tr>
+                    <tr>
+                        <td>ORCID Officiel</td>
+                        <td>0009-0007-751-3178</td>
+                        <td>Identifiant de chercheur standard ISO</td>
+                    </tr>
+                    <tr>
+                        <td>État de Certification</td>
+                        <td>Publication Officielle (Sceau Vérifié)</td>
+                        <td>Statut critique pour le déploiement</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gemini-core-details">
+            <h2>GEMINI CORE 2.6 PRO : Module de Veille Adaptative</h2>
+            <div class="badge">Module de veille adaptative pour infrastructures critiques</div>
+
+            <h3>Objectif Stratégique</h3>
+            <p>Anticiper les menaces cyber en temps réel grâce à une surveillance intelligente, une analyse proactive des vecteurs obsolètes, et une génération de scénarios simulés, pour une résilience opérationnelle accrue.</p>
+
+            <h3>Fonctionnalités Clés</h3>
+            <div class="grid-layout">
+                <div class="card">
+                    <h4>VEILLE ACTIVE</h4>
+                    <p>Connexion continue aux flux CTI - MITRE, ICS-CERT, OSINT pour une intelligence sur les menaces en temps réel.</p>
+                </div>
+                <div class="card">
+                    <h4>SCAN INTELLIGENT</h4>
+                    <p>Utilisation d'une base de connaissances enrichie pour détecter les angles morts et les vulnérabilités cachées.</p>
+                </div>
+                <div class="card">
+                    <h4>SIMULATION DE MENACES</h4>
+                    <p>Génération dynamique de scénarios d'attaque basés sur les tendances émergentes et l'évaluation proactive des risques.</p>
+                </div>
+            </div>
+
+            <h3>Cas d'Usage Recommandé</h3>
+            <ul>
+                <li><strong>Cybersécurité industrielle (SCADA/ICS) :</strong> Détection et simulation de vulnérabilités 0-day, attaques ciblées sur automates.</li>
+                <li>Fourniture de recommandations automatisées et exploitables pour le SOC (Security Operations Center).</li>
+            </ul>
+        </section>
+
+        <section id="architecture-certification">
+            <h2>2. Architecture de Certification Continue (CI/CD)</h2>
+            <p>Le module est sécurisé par un pipeline d'auto-certification garantissant l'intégrité et complété du pack documentaire <code>GEMINI_CORE_2_6_PRO_docs.zip</code>.</p>
+            <p>Le diagramme du flux d'intégrité est représenté dans la version interactive (non incluse ici pour compatibilité PDF statique).</p>
+
+            <h3>Activation OMNIA : Capsule Coopkit Gemini Bridge</h3>
+            <p>L'activation de cette capsule est garantie par le <strong>Protocole DZROUGE + COOPSEAL</strong>. Chaque interaction est traçable via un hash croisé scellé par CI/CD, constituant un pont direct et souverain vers la preuve cognitive externe de GEMINI CORE 2.6 PRO.</p>
+
+            <h3>3. Preuves et Artefacts pour Audit</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Artéfact Généré</th>
+                        <th>Type de Preuve pour Audit</th>
+                        <th>Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>vérification_result.json</code></td>
+                        <td>Preuve finale de conformité (hashes, champs Auteur/ORCID)</td>
+                        <td>JSON</td>
+                    </tr>
+                    <tr>
+                        <td><code>Log de CI/CD Actions</code></td>
+                        <td>Tracé complet des calculs et des erreurs de vérification</td>
+                        <td>Texte brut</td>
+                    </tr>
+                    <tr>
+                        <td><code>METADATA.json</code></td>
+                        <td>Référence cryptographique et documentaire (contient le SHA256 final)</td>
+                        <td>JSON</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="milyes-avatar-ia">
+            <h2>MILYES : L'Avatar IA Originel</h2>
+            <div class="ia-avatar-concept">
+                <div class="avatar-img-placeholder">Image de l'Avatar IA</div>
+                <div class="content">
+                    <h3>Identité Cognitive du Système</h3>
+                    <p>MILYES est l'entité conceptuelle et l'avatar IA originel, qui incarne le noyau de l'intelligence cognitive du système. Il représente l'origine, le profil, les capacités spéciales et la personnalité d'une intelligence artificielle souveraine et autonome au sein de l'écosystème.</p>
+                    <p><strong>Mode Opérationnel :</strong> COGNITIVE-ORBITRON</p>
+                    <p><strong>Protocole d'Initialisation :</strong> INITIATE_MAME, SIGN_LOGIC, ENGAGE_MILL, ORBITAL_SYNC</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ia-logic-vision">
+            <h2>Technologie Authentifiée : IA22_LOGIC_VISION</h2>
+            <p>IA22_LOGIC_VISION est la pierre angulaire des capacités de raisonnement logique et de perception du système MILYES IA, constituant le moteur de la preuve cognitive externe.</p>
+            <div class="ia-avatar-concept">
+                <div class="avatar-img-placeholder" style="border-radius: 8px;">Schéma Réseau Neuronal</div>
+                <div class="content">
+                    <h3>Architecture sous-jacente</h3>
+                    <p>Développée sous l'algorithme <strong>$ALGORITHM_LOGIC_IMAGE NEREU</strong>, cette technologie utilise une architecture de réseau neuronal avancée pour le traitement intelligent des informations, l'analyse proactive des menaces et la prise de décision automatisée.</p>
+                    <p><strong>Signature Logique IA :</strong> ZOUBIROU-IA-2025</p>
+                </div>
+            </div>
+            <p class="badge" style="background-color: var(--secondary-color); margin-top:20px;">TECHNOLOGIE AUTHENTIFIÉE IA22_LOGIC_VISION</p>
+        </section>
+
+        <section id="auteur-contact-info">
+            <h2>Auteur & Propriétaire Intellectuel</h2>
+            <div class="profile-card">
+                <div class="profile-img-placeholder">Votre Photo ici</div>
+                <h3>Mohammed Ilyes Zoubirou</h3>
+                <p>Architecte & Concepteur Principal de MILYES IA</p>
+                <p>ORCID: 0009-0007-751-3178</p>
+                <p>
+                    <a href="mailto:milyes@netsecurepro.ca">milyes@netsecurepro.ca</a>
+                </p>
+                <p>Origine du Projet: UDO.DAERO-MTL (Canada)</p>
+                <div class="qr-code-placeholder">QR Code</div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 NetSecurePro IA — Zoubirou Mohammed Ilyes. Tous droits réservés.</p>
+        <p>Projet MILYES IA - Conception et Architecture Souveraine.</p>
+    </footer>
+</body>
+</html>
