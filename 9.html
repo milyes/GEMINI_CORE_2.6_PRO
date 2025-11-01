@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline IA mvid - Commandes Opérationnelles</title>
+    <style>
+        :root {
+            --core-color: #007bff; /* Bleu Primaire (GEMINI CORE) */
+            --security-color: #dc3545; /* Rouge Sécurité (NETSECUREPRO) */
+            --ethics-color: #28a745; /* Vert Éthique (COOPKIT) */
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #343a40;
+            --font-mono: 'Consolas', 'Courier New', monospace;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        h1 {
+            color: var(--core-color);
+            border-bottom: 3px solid var(--core-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .command-category {
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .command-category h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .command-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .command-item {
+            display: grid;
+            grid-template-columns: 2fr 4fr 1.5fr 0.5fr;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px dotted #dee2e6;
+            font-size: 0.95em;
+        }
+
+        .command-item:last-child {
+            border-bottom: none;
+        }
+
+        .command-name {
+            font-family: var(--font-mono);
+            font-weight: bold;
+            color: var(--core-color);
+        }
+
+        .module-tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* Couleur spécifique aux modules */
+        .tag-core { background-color: rgba(0, 123, 255, 0.1); color: var(--core-color); }
+        .tag-security { background-color: rgba(220, 53, 69, 0.1); color: var(--security-color); }
+        .tag-ethics { background-color: rgba(40, 167, 69, 0.1); color: var(--ethics-color); }
+        .tag-system { background-color: rgba(108, 117, 125, 0.1); color: #6c757d; }
+
+        .btn-exec {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.8em;
+        }
+
+        .btn-exec:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1>Dashboard des Commandes IA (Pipeline `mvid`)</h1>
+        <p style="margin-bottom: 25px;">**MVID (Medical Vision & Interoperability Driver)** : Le moteur du bloc fonctionnel autonome de service.</p>
+
+        <div class="command-category">
+            <h2><span style="color: var(--core-color);">🧠</span> 1. Gestion du Modèle & Cœur d'IA (GEMINI CORE / AIMEDIXAL)</h2>
+            <ul class="command-list">
+                <li class="command-item">
+                    <span class="command-name">mvid.predict -patient [ID]</span>
+                    <span class="description">Génère une prédiction diagnostique (e.g., Parkinson Class 2) pour un patient donné.</span>
+                    <span class="module-tag tag-core">AIMEDIXAL</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.predict -patient [ID]')">Exécuter</button>
+                </li>
+                <li class="command-item">
+                    <span class="command-name">mvid.train -dataset [fichier]</span>
+                    <span class="description">Lance le ré-entraînement du modèle Random Forest avec un nouveau jeu de données sécurisé.</span>
+                    <span class="module-tag tag-core">AIMEDIXAL</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.train -dataset [fichier]')">Exécuter</button>
+                </li>
+                <li class="command-item">
+                    <span class="command-name">mvid.evaluate -model [vX.X]</span>
+                    <span class="description">Exécute l'audit de performance et de biais (équité) du modèle spécifié.</span>
+                    <span class="module-tag tag-core">AIMEDIXAL</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.evaluate -model [vX.X]')">Exécuter</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-category">
+            <h2><span style="color: var(--ethics-color);">🤝</span> 2. Interopérabilité & Gouvernance (COOPKIT)</h2>
+            <ul class="command-list">
+                <li class="command-item">
+                    <span class="command-name">mvid.fhir -translate [output]</span>
+                    <span class="description">Traduit le résultat de l'IA en une ressource FHIR et un code SNOMED CT pour l'échange clinique.</span>
+                    <span class="module-tag tag-ethics">COOPKIT</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.fhir -translate [output]')">Exécuter</button>
+                </li>
+                <li class="command-item">
+                    <span class="command-name">mvid.referral -create [patient]</span>
+                    <span class="description">Initialise le workflow d'approbation humaine (lance l'interface IA22-REFERRAL Cockpit).</span>
+                    <span class="module-tag tag-ethics">COOPKIT</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.referral -create [patient]')">Exécuter</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-category">
+            <h2><span style="color: var(--security-color);">🔒</span> 3. Sécurité & Audit (NETSECUREPRO)</h2>
+            <ul class="command-list">
+                <li class="command-item">
+                    <span class="command-name">mvid.netsec -check [ID]</span>
+                    <span class="description">Vérifie la chaîne de souveraineté et de chiffrement des données de l'enregistrement [ID].</span>
+                    <span class="module-tag tag-security">NETSECUREPRO</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.netsec -check [ID]')">Exécuter</button>
+                </li>
+                <li class="command-item">
+                    <span class="command-name">mvid.audit -log [date]</span>
+                    <span class="description">Extrait le journal d'audit sécurisé pour la traçabilité éthique de toutes les actions humaines/IA.</span>
+                    <span class="module-tag tag-security">NETSECUREPRO</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.audit -log [date]')">Exécuter</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-category">
+            <h2><span style="color: #6c757d;">⚙️</span> 4. Système & Maintenance</h2>
+            <ul class="command-list">
+                <li class="command-item">
+                    <span class="command-name">mvid.status</span>
+                    <span class="description">Affiche l'état de santé de tous les modules (AIMEDIXAL, NETSECUREPRO, COOPKIT, AIMEDiab-01).</span>
+                    <span class="module-tag tag-system">GEMINI CORE</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.status')">Exécuter</button>
+                </li>
+                <li class="command-item">
+                    <span class="command-name">mvid.reboot -module [module]</span>
+                    <span class="description">Redémarre un module spécifique (ex: AIMEDiab-01) pour une maintenance rapide.</span>
+                    <span class="module-tag tag-system">GEMINI CORE</span>
+                    <button class="btn-exec" onclick="executeCommand('mvid.reboot -module [module]')">Exécuter</button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // Fonction JavaScript pour simuler l'exécution des commandes
+        function executeCommand(command) {
+            alert(`COMMANDE EXÉCUTÉE (Simulation) : \n\n ${command} \n\n Résultat : Le terminal Termux est mis à jour et l'action a été enregistrée dans le journal d'audit NETSECUREPRO.`);
+        }
+    </script>
+
+</body>
+</html>
