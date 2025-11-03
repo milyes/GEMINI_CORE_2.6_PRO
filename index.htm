@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>NETSECUREPRO IA Médicale - Dashboard GRONDIN_HANDLER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #f0f0f0; margin: 0; padding: 0; }
+        header { background-color: #1f1f1f; padding: 15px; text-align: center; font-size: 1.5em; font-weight: bold; color: #00ffcc; }
+        main { padding: 20px; }
+        section { margin-bottom: 20px; padding: 15px; background-color: #1b1b1b; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        h2 { color: #00ffcc; }
+        button { background-color: #00ffcc; color: #121212; border: none; padding: 10px 20px; margin: 5px 0; border-radius: 5px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        button:hover { background-color: #00cc99; }
+        #status { font-size: 1.2em; }
+        #history { max-height: 300px; overflow-y: auto; }
+        .log-entry { border-bottom: 1px solid #333; padding: 5px 0; }
+    </style>
+</head>
+<body>
+
+<header>NETSECUREPRO IA Médicale - GRONDIN_HANDLER</header>
+
+<main>
+    <!-- Statut actuel -->
+    <section>
+        <h2>Statut actuel</h2>
+        <div id="status">Chargement...</div>
+        <button onclick="executeCommand('NEGOTIATION')">Lancer Négociation</button>
+        <button onclick="executeCommand('PROOF_OF_STATUS')">Lancer Preuve de Statut</button>
+    </section>
+
+    <!-- Historique -->
+    <section>
+        <h2>Historique des actions</h2>
+        <div id="history">
+            <p>Chargement...</p>
+        </div>
+    </section>
+</main>
+
+<script>
+// URL API interne (à adapter selon votre backend Flask/Node.js)
+const API_STATUS_URL = '/api/grondin_status';
+const API_EXECUTE_URL = '/api/execute_grondin';
+
+// Fonction pour récupérer le statut et mettre à jour le dashboard
+async function fetchStatus() {
+    try {
+        const res = await fetch(API_STATUS_URL);
+        const data = await res.json();
+
+        document.getElementById('status').innerHTML = `
+            <strong>Classification :</strong> ${data.classification}<br>
+            <strong>Status :</strong> ${data.status}<br>
+            <strong>Dernière action :</strong> ${data.last_action}<br>
+            <strong>Dernière vérification :</strong> ${data.last_check}
+        `;
+
+        // Historique
+        const historyDiv = document.getElementById('history');
+        historyDiv.innerHTML = '';
+        data.history.forEach(entry => {
+            const div = document.createElement('div');
+            div.classList.add('log-entry');
+            div.innerHTML = `<strong>${entry.timestamp}</strong> : ${entry.action}`;
+            historyDiv.appendChild(div);
+        });
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById('status').textContent = 'Erreur lors de la récupération du statut.';
+    }
+}
+
+// Fonction pour exécuter une commande via le backend
+async function executeCommand(mode) {
+    try {
+        const res = await fetch(API_EXECUTE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode })
+        });
+        const result = await res.json();
+        alert(`Commande exécutée : ${result.message}`);
+        fetchStatus(); // rafraîchir le dashboard après exécution
+    } catch (err) {
+        console.error(err);
+        alert('Erreur lors de l’exécution de la commande');
+    }
+}
+
+// Rafraîchissement automatique toutes les 10 secondes
+setInterval(fetchStatus, 10000);
+fetchStatus();
+</script>
+
+</body>
+</html>
