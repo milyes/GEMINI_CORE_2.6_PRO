@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>NETSECUREPRO IA – Console Stratégique Exécutable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #00ff9d;
+      font-family: "Courier New", monospace;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #161b22;
+      padding: 12px;
+      border-bottom: 2px solid #00ff9d;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    #console {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      background-color: #0d1117;
+    }
+    .cmd-input {
+      background: #0d1117;
+      border: none;
+      border-top: 2px solid #00ff9d;
+      padding: 12px;
+      color: #00ff9d;
+      font-family: "Courier New", monospace;
+      width: 100%;
+      font-size: 1em;
+      outline: none;
+    }
+    .prompt { color: #58a6ff; }
+    .system { color: #ffcc00; }
+    .success { color: #00ff9d; }
+    .error { color: #ff3b3b; }
+
+    .toolbar {
+      background: #161b22;
+      border-bottom: 2px solid #00ff9d;
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #00ff9d;
+      color: #0d1117;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #0d1117;
+      color: #00ff9d;
+      border: 1px solid #00ff9d;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>🚀 NETSECUREPRO IA – Console Stratégique (MVID Pipeline)</header>
+
+  <div class="toolbar">
+    <button onclick="executeCommand('EXECUTE GRONDIN_HANDLER')">▶ Exécuter Grondin Handler</button>
+    <button onclick="executeCommand('STATUS')">📊 Statut Système</button>
+    <button onclick="executeCommand('CLEAR')">🧹 Nettoyer</button>
+  </div>
+
+  <div id="console">
+    <span class="system">[SYSTEM] Chargement du module GRONDIN_RESPONSE_HANDLER...</span><br>
+    <span class="system">[SYSTEM] MVID Pipeline : ACTIF</span><br>
+    <span class="system">[STATUS] En attente de l'entrée du Professeur Grondin.</span><br><br>
+  </div>
+
+  <input id="commandInput" class="cmd-input" placeholder="Tapez une commande ici (ex: EXECUTE GRONDIN_HANDLER)" autofocus>
+
+  <script>
+    const consoleEl = document.getElementById("console");
+    const inputEl = document.getElementById("commandInput");
+
+    function printToConsole(text, type = "system") {
+      const span = document.createElement("span");
+      span.className = type;
+      span.textContent = text + "\n";
+      consoleEl.appendChild(span);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    function executeCommand(cmd) {
+      printToConsole(`\n> ${cmd}`, "prompt");
+
+      switch (cmd.toUpperCase()) {
+        case "EXECUTE GRONDIN_HANDLER":
+          printToConsole("[ACTION] Déploiement du Workflow GRONDIN_RESPONSE_HANDLER...", "system");
+          setTimeout(() => {
+            printToConsole("[LOG] Lecture de l'email du Professeur Grondin...", "system");
+          }, 1000);
+          setTimeout(() => {
+            printToConsole("[ANALYSE] Classification du message : POSITIVE_MEETING_REQUEST", "success");
+          }, 2000);
+          setTimeout(() => {
+            printToConsole("[SUCCESS] Exécution terminée. Préparer réponse stratégique IA (PhD Direct).", "success");
+          }, 3500);
+          break;
+
+        case "STATUS":
+          printToConsole("[STATUS] SYSTEM_STATE=READY | MODE=AWAITING_GRONDIN_INPUT | SECURITY=LOCKED", "system");
+          break;
+
+        case "CLEAR":
+          consoleEl.innerHTML = "";
+          break;
+
+        default:
+          printToConsole(`[ERROR] Commande inconnue : ${cmd}`, "error");
+      }
+    }
+
+    inputEl.addEventListener("keydown", e => {
+      if (e.key === "Enter" && inputEl.value.trim() !== "") {
+        executeCommand(inputEl.value.trim());
+        inputEl.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
