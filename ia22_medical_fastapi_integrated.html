@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>IA22_TUNNEL – Module Médical + FastAPI Backend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {font-family: 'Courier New', monospace;background:#0a0e17;color:#00ffea;margin:0;padding:0;overflow-x:hidden;}
+    .container {max-width:960px;margin:20px auto;padding:30px;background:#111927;border:1px solid #00ffea;border-radius:16px;box-shadow:0 0 30px rgba(0,255,234,0.4);}
+    .header {text-align:center;margin-bottom:30px;}
+    .title {font-size:2.4em;color:#00ffea;text-shadow:0 0 20px #00ffea;letter-spacing:3px;}
+    .subtitle {color:#00aaff;font-size:1.2em;margin:15px 0;text-shadow:0 0 10px #00aaff;}
+    .status {color:#00ff88;font-weight:bold;}
+    .empreinte {background:#001122;padding:25px;border-radius:14px;border:2px solid #00ffea;margin:30px 0;box-shadow:0 0 25px rgba(0,255,234,0.5);}
+    .hash {color:#00ff88;font-weight:bold;word-break:break-all;font-size:1.1em;}
+    #chat {background:#0a0e17;border:2px solid #003366;padding:25px;height:540px;overflow-y:auto;border-radius:14px;margin:25px 0;box-shadow:inset 0 0 30px rgba(0,50,100,0.7);}
+    .message {margin:18px 0;padding:18px 24px;border-radius:14px;max-width:88%;word-wrap:break-word;}
+    .user {background:#003366;color:#00ffea;align-self:flex-end;margin-left:auto;border-bottom-right-radius:4px;}
+    .assistant {background:#001122;color:#aaffff;border:1px solid #003366;align-self:flex-start;border-bottom-left-radius:4px;}
+    .sources {margin-top:18px;padding:18px;background:#000811;border-left:6px solid #00ffea;border-radius:10px;font-size:0.96em;}
+    .sources a {color:#00ffea;text-decoration:underline;}
+    textarea {width:100%;height:110px;padding:18px;background:#0a0e17;color:#00ffea;border:2px solid #003366;border-radius:14px;font-family:'Courier New';font-size:1.15em;}
+    textarea::placeholder {color:#006688;}
+    button {background:#00ffea;color:#000;padding:18px 40px;border:none;border-radius:14px;font-weight:bold;font-size:1.2em;cursor:pointer;transition:0.4s;box-shadow:0 0 25px rgba(0,255,234,0.7);}
+    button:hover {background:#00ffaa;transform:scale(1.08);box-shadow:0 0 40px rgba(0,255,170,0.9);}
+    .footer {text-align:center;margin-top:50px;color:#006688;font-size:0.95em;line-height:1.6;}
+    .glow {text-shadow:0 0 15px currentColor;}
+    .online-badge {display:inline-block;background:#00ff88;color:#000;padding:8px 16px;border-radius:20px;font-weight:bold;margin:10px 0;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title glow">IA22_TUNNEL</h1>
+      <p class="subtitle">Module Médical <span class="online-badge">FASTAPI BACKEND INTÉGRÉ</span></p>
+      <div class="empreinte">
+        <p><strong>Artefact Visuel :</strong> Empreinte orbitronique synchronisée</p>
+        <p><strong>Empreinte cryptographique :</strong><br><span class="hash">SHA256: 104d18e402a1a09b33a3c6ebcd935e93f75b9d09fa7980a0ed64dfa82ee505b0</span></p>
+        <p><strong>Horodatage :</strong> 2025-12-16</p>
+        <p><strong>Protocole :</strong> IA22 / DZROUGE / STTOU / TUNNEL_SYNC</p>
+        <p><strong>Backend :</strong> <span class="status">EMPRUNTSIA-MINIC via FastAPI</span></p>
+        <p><strong>Opérateur :</strong> Mohammed Ilyes Zoubirou</p>
+      </div>
+    </div>
+
+    <div id="chat">
+      <div class="message assistant">
+        <strong>🤖 IA22 Médical + FastAPI :</strong><br><br>
+        <span class="status">✓ TUNNEL FASTAPI CONNECTÉ</span><br>
+        Backend EMPRUNTSIA-MINIC actif.<br>
+        Modèle gpt-4o-mini prêt via emprunt sécurisé.<br><br>
+        Analyse médicale avancée disponible :<br>
+        • Bilans biologiques • Symptômes • Ordonnances<br>
+        • Réponses prudentes et sourcées<br><br>
+        Posez votre question, Opérateur.
+      </div>
+    </div>
+
+    <textarea id="input" placeholder="> Analyse : CRP 45 mg/L enfant • Glycémie 1.35 g/L • TSH 5.2 mUI/L..."></textarea>
+    <button onclick="envoyer()">Lancer Analyse via FastAPI</button>
+
+    <div class="footer">
+      ⚠️ Assistant médical IA – Informatif uniquement • Consultation médicale obligatoire<br>
+      NetSecurePro IA22 • Mohammed Ilyes Zoubirou • 2025
+    </div>
+  </div>
+
+  <script>
+    // === CONFIGURATION BACKEND FASTAPI ===
+    const FASTAPI_URL = "http://127.0.0.1:8000/ia/emprunt";  // Change en https://ton-domaine.com en prod
+    const BORROW_KEY = "ia22-emprunt-2025-zoubirou-secret"; // Clé d'emprunt (à sécuriser davantage en prod)
+
+    async function envoyer() {
+      const input = document.getElementById("input").value.trim();
+      if (!input) return;
+
+      const chatBox = document.getElementById("chat");
+      chatBox.innerHTML += `<div class="message user"><strong>> Requête FastAPI :</strong><br>${input.replace(/\n/g, '<br>')}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Indicateur d'envoi
+      const loadingId = Date.now();
+      chatBox.innerHTML += `<div id="load-${loadingId}" class="message assistant"><strong>🤖 IA22 :</strong><br><em>Tunnel FastAPI en cours... Emprunt IA en traitement...</em></div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch(FASTAPI_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Borrow-Key": BORROW_KEY
+          },
+          body: JSON.stringify({
+            message: input,
+            context: "médical"
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        document.getElementById(`load-${loadingId}`).remove();
+
+        chatBox.innerHTML += `<div class="message assistant">
+          <strong>🤖 IA22 Médical (via FastAPI) :</strong><br><br>
+          ${data.reponse.replace(/\n/g, '<br>')}<br><br>
+          <small>Emprunt ID: ${data.emprunt_id} • Modèle: ${data.model} • Timestamp: ${data.timestamp}</small>
+        </div>`;
+      } catch (err) {
+        document.getElementById(`load-${loadingId}`).remove();
+        chatBox.innerHTML += `<div class="message assistant" style="border-color:#ff0066;">
+          <strong>🤖 ERREUR TUNNEL :</strong><br>${err.message}<br>
+          Vérifiez que le backend FastAPI est lancé.
+        </div>`;
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+      document.getElementById("input").value = "";
+    }
+
+    // Envoi avec Entrée
+    document.getElementById("input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        envoyer();
+      }
+    });
+  </script>
+</body>
+</html>
