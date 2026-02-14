@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="oled">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Z-CORE COMMAND</title>
+    <style>
+        :root[data-theme="oled"] {
+            --bg: #000000; --ia-gold: #d4af37; --ia-green: #00ff41;
+            --ia-red: #ff1a1a; --text: #ffffff;
+        }
+        body { background: var(--bg); color: var(--text); font-family: 'Consolas', monospace; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        #kernel { width: 100%; max-width: 450px; border: 1px solid #111; display: flex; flex-direction: column; }
+        .header { padding: 15px; border-bottom: 2px solid var(--ia-gold); display: flex; justify-content: space-between; align-items: center; }
+        .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #111; }
+        .node { background: var(--bg); padding: 22px 10px; text-align: center; cursor: pointer; border: 1px solid #050505; }
+        .node.active { border-color: var(--ia-gold); background: #080800; }
+        .node h3 { margin: 0; font-size: 11px; color: #333; letter-spacing: 1px; }
+        .node.active h3 { color: var(--ia-green); }
+        #console { flex-grow: 1; padding: 15px; display: flex; flex-direction: column; background: #050505; }
+        textarea { flex-grow: 1; background: #000; border: 1px solid #1a1a1a; color: var(--ia-green); padding: 12px; font-family: 'Consolas', monospace; font-size: 13px; outline: none; border-radius: 4px; margin-bottom: 10px; }
+        .btn { width: 100%; border: none; padding: 16px; font-weight: bold; cursor: pointer; font-size: 12px; text-transform: uppercase; margin-top: 5px; }
+        .btn-gold { background: var(--ia-gold); color: #000; clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%); }
+        .btn-red { background: var(--ia-red); color: #fff; clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%, 0 15%); }
+        .footer { padding: 10px 15px; font-size: 10px; border-top: 1px solid #111; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+<div id="kernel">
+    <div class="header">
+        <div style="font-size:10px; color:var(--ia-gold); letter-spacing:2px;">IA22A_PRO_CORE_PWA</div>
+        <div style="color:var(--ia-green); font-size:9px;">[OFFLINE_READY]</div>
+    </div>
+
+    <div class="matrix">
+        <div class="node" id="N1" onclick="tap('SÉCURITÉ', 'N1')"><h3>SÉCURITÉ</h3></div>
+        <div class="node" id="N2" onclick="tap('DIGITAL', 'N2')"><h3>DIGITAL</h3></div>
+        <div class="node" id="N3" onclick="tap('LOGISTIQUE', 'N3')"><h3>LOGISTIQUE</h3></div>
+        <div class="node" id="N4" onclick="tap('QUALITÉ', 'N4')"><h3>QUALITÉ</h3></div>
+    </div>
+
+    <div id="console">
+        <textarea id="obs" placeholder="INPUT_DATA_STREAM..."></textarea>
+        <button class="btn btn-gold" onclick="injectGrok()">INJECTER PAYLOAD GROK-4</button>
+        <button id="alert-btn" class="btn btn-red" onclick="sendRedAlert()">ALERTE ROUGE SMS</button>
+    </div>
+
+    <div class="footer">
+        <div>RISK_INDEX: <span id="rv" style="color:var(--ia-red); font-weight:bold;">100%</span></div>
+        <div>P(ÉCHEC): <span id="pe" style="color:var(--ia-gold);">--</span></div>
+    </div>
+</div>
+
+<script>
+    let activeNodes = [];
+
+    // Enregistrement PWA Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+        });
+    }
+
+    function tap(name, id) {
+        const el = document.getElementById(id);
+        if(!activeNodes.includes(name)) { activeNodes.push(name); el.classList.add('active'); }
+        else { activeNodes = activeNodes.filter(n => n !== name); el.classList.remove('active'); }
+        updateMetrics();
+    }
+
+    function updateMetrics() {
+        const risk = 100 - (activeNodes.length * 25);
+        document.getElementById('rv').innerText = risk + "%";
+        document.getElementById('rv').style.color = risk <= 25 ? "var(--ia-green)" : "var(--ia-red)";
+
+        // Algorithme de Calculateur P(échec) dynamique
+        let pFailure = risk;
+        const hour = new Date().getHours();
+        const day = new Date().getDay(); // 0 = Dimanche, 6 = Samedi
+        
+        if (hour < 7 || hour > 19) pFailure += 15; // Majorité de nuit
+        if (day === 0 || day === 6) pFailure += 10; // Majorité week-end
+        
+        document.getElementById('pe').innerText = Math.min(pFailure, 100) + "%";
+    }
+
+    function injectGrok() {
+        const risk = document.getElementById('rv').innerText;
+        const pe = document.getElementById('pe').innerText;
+        const obs = document.getElementById('obs').value || "NULL";
+        const payload = `// IA22A v2.6 PRO | RISK: ${risk} | P(FAIL): ${pe}\n{ "obs": "${obs.replace(/"/g, "'")}" }\n[GROK-4]: Analyse P(FAIL) et RISK. 3 ordres. EXECUTE.`;
+        navigator.clipboard.writeText(payload);
+        alert("INJECTION PRÊTE");
+    }
+
+    function sendRedAlert() {
+        const risk = document.getElementById('rv').innerText;
+        const pe = document.getElementById('pe').innerText;
+        const obs = document.getElementById('obs').value.substring(0, 100);
+        if (parseInt(risk) < 50) return alert("RISQUE INSUFFISANT");
+        
+        const sms = `[Z-CORE RED ALERT]\nRISK: ${risk} | P(FAIL): ${pe}\nOBS: ${obs}...\nORDRES: EVACUER / STOP FLUX / ANCRAGE.\nEXECUTE.`;
+        navigator.clipboard.writeText(sms).then(() => {
+            document.getElementById('alert-btn').innerText = "SMS COPIÉ";
+            setTimeout(() => { document.getElementById('alert-btn').innerText = "ALERTE ROUGE SMS"; }, 2000);
+        });
+    }
+</script>
+</body>
+</html>
