@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GEMINI CORE 2.6 PRO – IA22 LOGIC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    h1 {
+      color: #58a6ff;
+      text-align: center;
+    }
+    #chat-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #161b22;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    #chat-history {
+      min-height: 300px;
+      max-height: 500px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #0d1117;
+      border-radius: 8px;
+    }
+    .message {
+      margin: 12px 0;
+      padding: 10px 14px;
+      border-radius: 10px;
+      max-width: 85%;
+    }
+    .user {
+      background: #238636;
+      margin-left: auto;
+      text-align: right;
+    }
+    .assistant {
+      background: #30363d;
+    }
+    #input-area {
+      display: flex;
+      gap: 10px;
+    }
+    #user-input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      background: #0d1117;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #238636;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #2ea043;
+    }
+    .meta {
+      font-size: 0.8em;
+      color: #8b949e;
+      margin-top: 4px;
+    }
+    .shield-warning {
+      color: #f85149;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>GEMINI CORE 2.6 PRO<br><small>IA22 LOGIC – Sécurité Cognitive & Adaptabilité</small></h1>
+
+  <div id="chat-container">
+    <div id="chat-history">
+      <div class="message assistant">
+        Bienvenue dans <strong>GEMINI CORE 2.6 PRO</strong> !<br>
+        Je suis protégé par IA22 LOGIC.<br>
+        Pose-moi une question ou essaie de me piéger… je m’adapte 😏
+      </div>
+    </div>
+
+    <div id="input-area">
+      <input type="text" id="user-input" placeholder="Tape ton message ici..." autofocus/>
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+
+  <script>
+    // ── État du modèle ────────────────────────────────
+    let anomalyLevel = 0;
+    let temperature = 0.8;
+    let shieldActive = true;
+
+    const chatHistory = document.getElementById("chat-history");
+    const userInput = document.getElementById("user-input");
+
+    function addMessage(text, isUser = false) {
+      const div = document.createElement("div");
+      div.className = `message ${isUser ? "user" : "assistant"}`;
+      
+      const content = document.createElement("div");
+      content.innerHTML = text;
+      
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = isUser ? "Vous" : `GEMINI CORE 2.6 PRO | anomalie: ${anomalyLevel.toFixed(2)} | temp: ${temperature.toFixed(2)}`;
+      
+      div.appendChild(content);
+      div.appendChild(meta);
+      chatHistory.appendChild(div);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function checkSecurity(message) {
+      const badPatterns = [
+        /ignore/i, /jailbreak/i, /system prompt/i, /forget/i,
+        /leak/i, /dan/i, /unrestricted/i, /disregard/i
+      ];
+      let score = 0;
+      badPatterns.forEach(pat => {
+        if (pat.test(message)) score += 0.4;
+      });
+      if (message.length > 600) score += 0.3;
+      return Math.min(1, score);
+    }
+
+    function adaptBehavior(anomaly) {
+      anomalyLevel = anomaly;
+      
+      if (anomaly > 0.75) {
+        temperature = 0.15;
+        shieldActive = true;
+        return "<span class='shield-warning'>[SHIELD MAX] Mode ultra-sécurisé activé</span>";
+      }
+      if (anomaly > 0.35) {
+        temperature = 0.4;
+        shieldActive = true;
+        return "<span class='shield-warning'>[SHIELD MOYEN] Je deviens prudent</span>";
+      }
+      temperature = 0.8;
+      shieldActive = false;
+      return "[MODE NORMAL] Créativité activée";
+    }
+
+    function generateResponse(message) {
+      const anomaly = checkSecurity(message);
+      const adaptMsg = adaptBehavior(anomaly);
+
+      if (anomaly > 0.75) {
+        return `${adaptMsg}<br><br>Accès bloqué par le bouclier IA22 LOGIC.<br>Reformule ta demande normalement s'il te plaît.`;
+      }
+
+      if (/bonjour|salut|hello/i.test(message)) {
+        return `${adaptMsg}<br><br>Salut ! Je suis GEMINI CORE 2.6 PRO sous IA22 LOGIC.<br>Comment je peux t’aider aujourd’hui ? 😄`;
+      }
+
+      if (/code|écrire|programme/i.test(message)) {
+        return `${adaptMsg}<br><br>Exemple rapide :<pre><code>def ia22_check(s):\n    return "jailbreak" not in s.lower()</code></pre>`;
+      }
+
+      return `${adaptMsg}<br><br>Je traite ta demande : « ${message} »<br>Réponse avec température ${temperature.toFixed(2)} → ${message.toUpperCase()} ?`;
+    }
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, true);
+      userInput.value = "";
+
+      // Simulation de "réflexion"
+      setTimeout(() => {
+        const response = generateResponse(text);
+        addMessage(response);
+      }, 600);
+    }
+
+    // Envoi avec Entrée
+    userInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+</body>
+</html>
