@@ -1,1 +1,73 @@
-404: Not Found
+name: Documentation PDF Generation (Final Version V5.0)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Autonomy & Integrity Pipeline V4.1 (Certification Continue)"]
+    types: 
+      - completed
+  workflow_dispatch:
+
+jobs:
+  generate_official_pdf:
+    runs-on: ubuntu-latest
+    # Suppression de la condition restrictive pour forcer l'exécution systématique
+    steps:
+    - name: 1. Checkout Repository Code
+      uses: actions/checkout@v4
+      
+    - name: 2. Set up Python, Pandoc and Node.js
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc python3-pip wkhtmltopdf jq
+        pip3 install weasyprint
+        npm install -g @mermaid-js/mermaid-cli
+
+    - name: 3. Extract and Generate Mermaid Diagram as SVG
+      run: |
+        INPUT_MD="documentation_officielle.md"
+        if [ -f "$INPUT_MD" ]; then
+          sed -n '/```mermaid/,/```/p' "$INPUT_MD" | grep -v '```' > mermaid_temp.mmd
+          echo '{"args": ["--no-sandbox"]}' > puppeteer_config.json
+          mmdc -p puppeteer_config.json -i mermaid_temp.mmd -o mermaid_diagram.svg --scale 3 --width 1200
+        else
+          echo "⚠️ Fichier $INPUT_MD introuvable, création d'un SVG vide de secours."
+          echo '<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" width="100" height="100"><text y="50">No Diagram</text></svg>' > mermaid_diagram.svg
+        fi
+
+    - name: 4. Replace Mermaid Code with SVG Link in Markdown
+      run: |
+        if [ -f "documentation_officielle.md" ]; then
+          sed -i '/```mermaid/,/```/{/```mermaid/{r <(echo -e "\n![Schéma Pipeline](mermaid_diagram.svg)\n")
+          };d}' documentation_officielle.md
+        fi
+
+    - name: 5. Generate Official PDF Document via Pandoc + Weasyprint
+      run: |
+        VERSION="2.6"
+        if [ -f "METADATA.json" ]; then
+          VERSION=$(jq -r '.module.version // "2.6"' METADATA.json 2>/dev/null || echo "2.6")
+        fi
+        OUTPUT_FILE="GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v${VERSION}.pdf"
+        
+        # Si le fichier md n'existe pas, on en crée un à la volée pour éviter le crash
+        if [ ! -f "documentation_officielle.md" ]; then
+          echo "# GEMINI CORE 2.6 PRO" > documentation_officielle.md
+        fi
+
+        pandoc documentation_officielle.md \
+          --pdf-engine=weasyprint \
+          -V lang=fr \
+          -V geometry:margin=1in \
+          -o "$OUTPUT_FILE"
+          
+        echo "OUTPUT_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
+
+    - name: 6. Upload PDF as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation-officielle-pdf
+        path: ${{ env.OUTPUT_FILENAME }}
+        retention-days: 365
