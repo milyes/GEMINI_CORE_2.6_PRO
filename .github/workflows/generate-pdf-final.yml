@@ -1,65 +1,116 @@
-name: Documentation PDF Generation (Final Version V5.0)
+name: "Documentation PDF Generation (Final Version V5.0)"
 
 on:
-  push:
-    branches:
-      - main
   workflow_run:
     workflows: ["Autonomy & Integrity Pipeline V4.1 (Certification Continue)"]
-    types: 
+    types:
       - completed
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  generate_official_pdf:
+  build-pdf:
     runs-on: ubuntu-latest
-    # Suppression de la condition restrictive pour forcer l'exécution systématique
+    name: "Extraction MMD & Compilation PDF Souverain"
+    # S'assure que le pipeline d'intégrité a réussi avant de générer le PDF officiel
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
     steps:
-    - name: 1. Checkout Repository Code
-      uses: actions/checkout@v4
-      
-    - name: 2. Set up Python, Pandoc and Node.js
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y pandoc python3-pip wkhtmltopdf jq
-        pip3 install weasyprint
-        npm install -g @mermaid-js/mermaid-cli
+      - name: 1. Clonage du Dépôt
+        uses: actions/checkout@v4
 
-    - name: 3. Extract and Generate Mermaid Diagram as SVG
-      run: |
-        INPUT_MD="documentation_officielle.md"
-        if [ -f "$INPUT_MD" ]; then
-          sed -n '/```mermaid/,/```/p' "$INPUT_MD" | grep -v '```' > mermaid_temp.mmd
-          echo '{"args": ["--no-sandbox"]}' > puppeteer_config.json
-          mmdc -p puppeteer_config.json -i mermaid_temp.mmd -o mermaid_diagram.svg --scale 3 --width 1200
-        else
-          echo "⚠️ Fichier $INPUT_MD introuvable, création d'un SVG vide de secours."
-          echo '<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" width="100" height="100"><text y="50">No Diagram</text></svg>' > mermaid_diagram.svg
-        fi
+      - name: 2. Installation de Node.js (Version LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    - name: 4. Replace Mermaid Code with SVG Link in Markdown
-      run: |
-        if [ -f "documentation_officielle.md" ]; then
-          sed -i '/```mermaid/,/```/{/```mermaid/{r <(echo -e "\n![Schéma Pipeline](mermaid_diagram.svg)\n")
-          };d}' documentation_officielle.md
-        fi
+      - name: 3. Installation de Mermaid CLI (mmdc)
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
 
-    - name: 5. Generate Official PDF Document via Pandoc + Weasyprint
-      run: |
-        VERSION="2.6"
-        if [ -f "METADATA.json" ]; then
-          VERSION=$(jq -r '.module.version // "2.6"' METADATA.json 2>/dev/null || echo "2.6")
-        fi
-        OUTPUT_FILE="GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v${VERSION}.pdf"
-        
-        # Si le fichier md n'existe pas, on en crée un à la volée pour éviter le crash
-        if [ ! -f "documentation_officielle.md" ]; then
-          echo "# GEMINI CORE 2.6 PRO" > documentation_officielle.md
-        fi
+      - name: 4. Extraction du Diagramme Mermaid et Génération SVG (Workflow V5.0)
+        run: |
+          mkdir -p images
+          
+          # Extraction rigoureuse du bloc Mermaid contenu dans le fichier HTML source
+          cat << 'EOF' > extract_mermaid.py
+          import re
 
-        pandoc documentation_officielle.md \
-          --pdf-engine=weasyprint \
-          -V lang=fr \
+          with open("gemini-code-1781901115553.html", "r", encoding="utf-8") as f:
+              content = f.read()
+
+          # Capture du contenu textuel à l'intérieur de la div de classe mermaid[cite: 3]
+          match = re.search(r'<div class="mermaid">(.*?)</div>', content, re.DOTALL)
+          if match:
+              mermaid_code = match.group(1).strip()
+              with open("diagramme.mmd", "w", encoding="utf-8") as out:
+                  out.write(mermaid_code)
+              print("[OK] Code Mermaid extrait avec succès.")
+          else:
+              print("[ERREUR] Impossible de localiser la div mermaid.")
+          EOF
+          
+          python3 extract_mermaid.py
+          
+          # Compilation du code Mermaid en image vectorielle SVG pour une conversion PDF parfaite
+          if [ -f "diagramme.mmd" ]; then
+            mmdc -i diagramme.mmd -o images/flux-integrite-v3.svg -t dark -b transparent
+          fi
+
+      - name: 5. Installation de Pandoc & WeasyPrint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc weasyprint
+
+      - name: 6. Préparation du Contenu Markdown & Métadonnées Institutionnelles
+        run: |
+          # Génération à la volée du fichier markdown incluant les données de traçabilité officielles
+          cat << 'EOF' > GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.md
+          ---
+          title: "DOCUMENTATION OFFICIELLE : GEMINI CORE 2.6 PRO"
+          author: "Zoubirou Mohammed Ilyes (ORCID: 0009-0007-7571-3178)"
+          date: "$(date +'%Y-%m-%d')"
+          ---
+
+          # 1. Fiche Technique Institutionnelle & Traçabilité
+          Ce module représente le standard de traçabilité le plus élevé, validé par des contrôles d'intégrité cryptographique continus.[cite: 1]
+
+          | Champ | Valeur Officielle | Rôle de Traçabilité |
+          | :--- | :--- | :--- |
+          | **Nom du Module** | GEMINI CORE 2.6 PRO | Identifiant du système. |[cite: 1]
+          | **Version** | 2.6 | Clé de vérification du pipeline. |[cite: 1]
+          | **Auteur Officiel** | Zoubirou Mohammed Ilyes | Nom pour l'archivage formel. |[cite: 1]
+          | **ORCID Officiel** | 0009-0007-7571-3178 | Identifiant de chercheur standard ISO (ORCID). |[cite: 1]
+          | **État de Certification** | Publication Officielle (Sceau Vérifié) | Statut critique pour le déploiement. |[cite: 1]
+
+          # 2. Architecture de Certification Continue (CI/CD)
+          Le module est sécurisé par un pipeline d'auto-certification qui garantit l'intégrité de bout en bout. Le diagramme ci-dessous illustre le processus totalement autonome et traçable.[cite: 1]
+
+          ### Schéma du Flux d'Intégrité (Version Ultra-Visuelle V3.0)
+          ![Flux d'Intégrité](./images/flux-integrite-v3.svg)
+          EOF
+
+      - name: 7. Compilation du PDF Officiel
+        run: |
+          pandoc GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.md \
+            -o GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.pdf \
+            --pdf-engine=weasyprint
+
+      - name: 8. Archivage Formel du Livrable (Sceau Vérifié)
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEMINI_CORE_2.6_PRO_PDF
+          path: GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.pdf
+
+      - name: 9. Publication Automatique de l'Artefact Certifié
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Pipeline"
+          git add GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.pdf
+          git commit -m "chore(pdf): archivage officiel - GEMINI CORE 2.6 PRO [skip ci]" || echo "Aucun changement détecté"
+          git push          -V lang=fr \
           -V geometry:margin=1in \
           -o "$OUTPUT_FILE"
           
