@@ -1,0 +1,60 @@
+name: Documentation PDF Generation (Final Version V5.0)
+
+on:
+  workflow_run:
+    workflows: ["Autonomy & Integrity Pipeline V4.1 (Certification Continue)"]
+    types: 
+      - completed
+  workflow_dispatch:
+
+jobs:
+  generate_official_pdf:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+
+    steps:
+    - name: 1. Checkout Repository Code
+      uses: actions/checkout@v4
+      
+    - name: 2. Set up Pandoc, wkhtmltopdf and Node.js
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc wkhtmltopdf
+        npm install -g @mermaid-js/mermaid-cli
+
+    - name: 3. Extract and Generate Mermaid Diagram as SVG
+      run: |
+        INPUT_MD="documentation_officielle.md"
+        MERMAID_CODE=$(awk '/```mermaid/,/```/{if($0!~/```/){print}}' "$INPUT_MD")
+        echo "$MERMAID_CODE" > mermaid_temp.mmd
+        mmdc -i mermaid_temp.mmd -o mermaid_diagram.svg --scale 3 --width 1200
+
+    - name: 4. Replace Mermaid Code with SVG Link in Markdown
+      run: |
+        INPUT_MD="documentation_officielle.md"
+        TEMP_MD="documentation_final.md"
+        awk '
+        /```mermaid/{print; system("echo \"![](" SVG_OUTPUT ")\""); next} 
+        /
+```/{if (p==1) {p=0; next} else {p=1}} 
+        p==0 || /```/ {print} 
+        ' p=1 SVG_OUTPUT="mermaid_diagram.svg" "$INPUT_MD" > "$TEMP_MD"
+        mv "$TEMP_MD" "$INPUT_MD"
+
+    - name: 5. Generate Official PDF Document
+      run: |
+        VERSION=$(jq -r '.module.version' METADATA.json)
+        OUTPUT_FILE="GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v\${VERSION}.pdf"
+        pandoc "documentation_officielle.md" \
+          --pdf-engine=wkhtmltopdf \
+          -V lang=fr \
+          -V geometry:margin=1in \
+          -o "\$OUTPUT_FILE"
+        echo "OUTPUT_FILENAME=\$OUTPUT_FILE" >> \$GITHUB_ENV
+
+    - name: 6. Upload PDF as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation-officielle-pdf
+        path: ${{ env.OUTPUT_FILENAME }}
+        retention-days: 365
