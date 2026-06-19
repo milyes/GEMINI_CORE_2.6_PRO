@@ -14,7 +14,6 @@ jobs:
   build-pdf:
     runs-on: ubuntu-latest
     name: "Extraction MMD & Compilation PDF Souverain"
-    # S'assure que le pipeline d'intégrité a réussi avant de générer le PDF officiel
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
     steps:
@@ -30,33 +29,13 @@ jobs:
         run: |
           npm install -g @mermaid-js/mermaid-cli
 
-      - name: 4. Extraction du Diagramme Mermaid et Génération SVG (Workflow V5.0)
+      - name: 4. Traitement du Diagramme Mermaid (Workflow V5.0)
         run: |
           mkdir -p images
-          
-          # Extraction rigoureuse du bloc Mermaid contenu dans le fichier HTML source
-          cat << 'EOF' > extract_mermaid.py
-          import re
-
-          with open("gemini-code-1781901115553.html", "r", encoding="utf-8") as f:
-              content = f.read()
-
-          # Capture du contenu textuel à l'intérieur de la div de classe mermaid[cite: 3]
-          match = re.search(r'<div class="mermaid">(.*?)</div>', content, re.DOTALL)
-          if match:
-              mermaid_code = match.group(1).strip()
-              with open("diagramme.mmd", "w", encoding="utf-8") as out:
-                  out.write(mermaid_code)
-              print("[OK] Code Mermaid extrait avec succès.")
-          else:
-              print("[ERREUR] Impossible de localiser la div mermaid.")
-          EOF
-          
-          python3 extract_mermaid.py
-          
-          # Compilation du code Mermaid en image vectorielle SVG pour une conversion PDF parfaite
-          if [ -f "diagramme.mmd" ]; then
-            mmdc -i diagramme.mmd -o images/flux-integrite-v3.svg -t dark -b transparent
+          if [ -f "documentation_officielle.md" ]; then
+            mmdc -i documentation_officielle.md -o images/flux-integrite-v3.svg -t dark -b transparent
+          else
+            echo "[ALERTE] documentation_officielle.md introuvable"
           fi
 
       - name: 5. Installation de Pandoc & WeasyPrint
@@ -64,33 +43,34 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc weasyprint
 
-      - name: 6. Préparation du Contenu Markdown & Métadonnées Institutionnelles
+      - name: 6. Génération du Document Markdown Institutionnel
+        env:
+          CURRENT_DATE: $(date +'%Y-%m-%d')
         run: |
-          # Génération à la volée du fichier markdown incluant les données de traçabilité officielles
-          cat << 'EOF' > GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.md
+          cat << 'INNER_EOF' > GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.md
           ---
           title: "DOCUMENTATION OFFICIELLE : GEMINI CORE 2.6 PRO"
           author: "Zoubirou Mohammed Ilyes (ORCID: 0009-0007-7571-3178)"
-          date: "$(date +'%Y-%m-%d')"
+          date: "${{ env.CURRENT_DATE }}"
           ---
 
           # 1. Fiche Technique Institutionnelle & Traçabilité
-          Ce module représente le standard de traçabilité le plus élevé, validé par des contrôles d'intégrité cryptographique continus.[cite: 1]
+          Ce module représente le standard de traçabilité le plus élevé, validé par des contrôles d'intégrité cryptographique continus.
 
           | Champ | Valeur Officielle | Rôle de Traçabilité |
           | :--- | :--- | :--- |
-          | **Nom du Module** | GEMINI CORE 2.6 PRO | Identifiant du système. |[cite: 1]
-          | **Version** | 2.6 | Clé de vérification du pipeline. |[cite: 1]
-          | **Auteur Officiel** | Zoubirou Mohammed Ilyes | Nom pour l'archivage formel. |[cite: 1]
-          | **ORCID Officiel** | 0009-0007-7571-3178 | Identifiant de chercheur standard ISO (ORCID). |[cite: 1]
-          | **État de Certification** | Publication Officielle (Sceau Vérifié) | Statut critique pour le déploiement. |[cite: 1]
+          | **Nom du Module** | GEMINI CORE 2.6 PRO | Identifiant du système. |
+          | **Version** | 2.6 | Clé de vérification du pipeline. |
+          | **Auteur Officiel** | Zoubirou Mohammed Ilyes | Nom pour l'archivage formel. |
+          | **ORCID Officiel** | 0009-0007-7571-3178 | Identifiant de chercheur standard ISO (ORCID). |
+          | **État de Certification** | Publication Officielle (Sceau Vérifié) | Statut critique pour le déploiement. |
 
           # 2. Architecture de Certification Continue (CI/CD)
-          Le module est sécurisé par un pipeline d'auto-certification qui garantit l'intégrité de bout en bout. Le diagramme ci-dessous illustre le processus totalement autonome et traçable.[cite: 1]
+          Le module est sécurisé par un pipeline d'auto-certification qui gagne l'intégrité de bout en bout. Le diagramme ci-dessous illustre le processus totalement autonome et traçable.
 
           ### Schéma du Flux d'Intégrité (Version Ultra-Visuelle V3.0)
           ![Flux d'Intégrité](./images/flux-integrite-v3.svg)
-          EOF
+          INNER_EOF
 
       - name: 7. Compilation du PDF Officiel
         run: |
@@ -110,15 +90,4 @@ jobs:
           git config --local user.name "GitHub Action Pipeline"
           git add GEMINI_CORE_2.6_PRO_DOCS_OFFICIEL_v2.6.pdf
           git commit -m "chore(pdf): archivage officiel - GEMINI CORE 2.6 PRO [skip ci]" || echo "Aucun changement détecté"
-          git push          -V lang=fr \
-          -V geometry:margin=1in \
-          -o "$OUTPUT_FILE"
-          
-        echo "OUTPUT_FILENAME=$OUTPUT_FILE" >> $GITHUB_ENV
-
-    - name: 6. Upload PDF as Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: documentation-officielle-pdf
-        path: ${{ env.OUTPUT_FILENAME }}
-        retention-days: 365
+          git push
