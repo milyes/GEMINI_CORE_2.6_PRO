@@ -1,46 +1,31 @@
-# Contenu du README.md en Markdown pur
-readme_content = """# 🛡️ GEMINI CORE 2.6 PRO
+# GEMINI CORE 2.6 PRO
 
-> **"Le génie ne consiste pas à ajouter des lignes de code, mais à trouver le seul mot qui rend toutes les autres lignes inutiles."**
+**Noyau Cognitif Souverain**  
+**Version :** 2.6  
+**Auteur :** Zoubirou Mohammed Ilyes  
+**ORCID :** 0009-0007-7571-3178  
+**Certification :** IA22 Certified | NetSecurePro_IA
 
-![Statut](https://img.shields.io/badge/Statut-CERTIFIÉ-success?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-2.6-blue?style=for-the-badge)
-![Security](https://img.shields.io/badge/Protocol-DZROUGE_V5.0-red?style=for-the-badge)
+## Présentation
 
-## 🏛️ Architecture & Souveraineté
-**GEMINI CORE 2.6 PRO** est un Noyau Cognitif Souverain conçu pour garantir une intégrité absolue et une traçabilité totale. Ce projet redéfinit la relation entre l'IA et son architecte par le biais d'une certification cryptographique continue.
+**GEMINI CORE 2.6 PRO** est le noyau cognitif souverain de l’écosystème **NetSecurePro_IA** et **SYSTEMEOSIA**. Il constitue le fondement d’une architecture orbitronique autonome, conçue pour garantir la souveraineté des données, la traçabilité cryptographique et l’exécution locale d’agents d’intelligence artificielle.
 
-### 👤 Identité de l'Auteur
-- **Architecte :** Zoubirou Mohammed Ilyes
-- **Identifiant ORCID :** [0009-0007-7571-3178](https://orcid.org/0009-0007-7571-3178)
-- **Rôle :** Entité Souveraine & Lead Developer
+Ce projet s’inscrit dans une démarche de **cybersouveraineté** développée en Algérie, alignée sur les protocoles **IA22**.
 
+## Fonctionnalités Principales
+
+- **Forge d’Agents IA Autonomes** : Orchestration multi-agents pour la création automatique de projets (analyse, aspects juridiques, développement, paiement, marketing).
+- **Pipeline de Certification Continue** : Intégration GitHub Actions avec génération automatisée de documentation PDF.
+- **Architecture Orbitronique** : Encapsulation des artefacts dans des capsules cockpit sécurisées et traçables.
+- **Exécution Souveraine** : Compatible Termux / IA LocalServer, sans dépendance à des services cloud externes.
+
+## Structure du Projet
 ---
 
-## 🛠️ Composants du Système
+### Commande complète pour finaliser le déploiement
 
-Le noyau est structuré autour de quatre piliers technologiques :
-
-1.  **Certification (`update_hash.py`)** : Génère l'empreinte SHA256 unique du système.
-2.  **Audit Flash (`verify_core_v2.py`)** : Vérifie la concordance entre le code, les métadonnées et l'identité de l'auteur.
-3.  **Capsule de Données (`METADATA.json`)** : Registre central des preuves d'intégrité.
-4.  **Pipeline CI/CD V5.0** : Automatisation du déploiement avec alertes critiques sur Slack en cas de compromission.
-
----
-
-## 🔐 Protocole de Sécurité : DZROUGE
-Le protocole **DZROUGE** impose un scellement binaire de chaque version. 
-- **Zéro Confiance :** Toute modification hors pipeline invalide le certificat.
-- **Intégrité Immuable :** Le hachage SHA256 fait foi de preuve institutionnelle.
-- **Traçabilité ORCID :** Chaque itération est liée de manière indélébile à l'identité numérique de l'auteur.
-
----
-
-## 📊 Visualisation du Noyau
-```mermaid
-graph TD
-    A[Source Code] -->|SHA256| B{Capsule DZROUGE}
-    B -->|Validé| C[Publication Souveraine]
-    B -->|Corrompu| D[Alerte Slack Critique]
-    C --> E[Rapport PDF Officiel]
-    C --> F[GitHub Pages Portal]
+```bash
+# Création du README.md
+cat > README.md << 'EOF'
+# GEMINI CORE 2.6 PRO
+... [contenu ci-dessus]
