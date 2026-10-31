@@ -1,0 +1,15 @@
+{
+  "projet": "Génère zcore_ssrf_guard.py. Code FastAPI complet. Fonction detect_ssrf qui bloque ::ffff:169.254.169.254. Log JSON. Port 8000. 100% Local.",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-17T21:45:58.080923",
+  "sha256": "b7e76f18809135cc35ca6335a414b557f75661e81b5f5703e303640a61311190",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

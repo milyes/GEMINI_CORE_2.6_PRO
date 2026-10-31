@@ -1,0 +1,99 @@
+[
+  {
+    "agent": "Agent Archi",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Architecture",
+      "analyse": "Architecture technique souveraine pour : Livraison repas Darija",
+      "stack_recommandee": [
+        "Python 3",
+        "FastAPI",
+        "SQLite",
+        "Termux-native",
+        "HTML/CSS/JS"
+      ],
+      "structure": [
+        "backend/",
+        "frontend/",
+        "docs/",
+        "scripts/",
+        "data/"
+      ],
+      "principes": [
+        "Offline-first",
+        "Zero-Trust",
+        "Local-only"
+      ]
+    },
+    "trace": "daa8d75929e3506b..."
+  },
+  {
+    "agent": "Agent Juriste",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Juridique & Conformité",
+      "analyse": "Cadre légal minimal pour : Livraison repas Darija",
+      "points_cles": [
+        "Données 100% locales (pas de cloud)",
+        "Licence souveraine / MIT adaptée",
+        "Mentions légales simplifiées",
+        "Respect RGPD par design (données ne quittent pas l'appareil)"
+      ],
+      "risques": [
+        "Très faible – exécution locale"
+      ]
+    },
+    "trace": "ca956e62400f57de..."
+  },
+  {
+    "agent": "Agent Dev",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Développement",
+      "analyse": "Plan de développement pour : Livraison repas Darija",
+      "etapes": [
+        "Jour 1-2 : Structure + API locale",
+        "Jour 3-4 : Interface Termux + Web minimal",
+        "Jour 5-7 : Tests + packaging"
+      ],
+      "langages": [
+        "Python",
+        "Bash",
+        "HTML/CSS/JS"
+      ],
+      "priorite": "MVP fonctionnel en 7 jours"
+    },
+    "trace": "5635dcc3c0581351..."
+  },
+  {
+    "agent": "Agent Paiement",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Monétisation",
+      "analyse": "Stratégie de monétisation souveraine pour : Livraison repas Darija",
+      "modeles": [
+        "Freemium local",
+        "Paiement cash / CCP / BaridiMob",
+        "Abonnement mensuel hors-ligne"
+      ],
+      "recommandation": "Éviter les gateways internationaux au démarrage"
+    },
+    "trace": "a23bc39a0f5d3010..."
+  },
+  {
+    "agent": "Agent Marketing",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Marketing & Diffusion",
+      "analyse": "Stratégie marketing locale pour : Livraison repas Darija",
+      "canaux": [
+        "WhatsApp Business",
+        "Groupes Facebook/Telegram locaux",
+        "Bouche-à-oreille en Darija",
+        "Affiches et réseaux de proximité"
+      ],
+      "slogan": "« Livraison repas Darija – 100% local, 100% souverain »"
+    },
+    "trace": "9d525cf119cf5021..."
+  }
+]

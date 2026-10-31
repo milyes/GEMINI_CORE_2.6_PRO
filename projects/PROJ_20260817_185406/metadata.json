@@ -1,0 +1,15 @@
+{
+  "projet": "Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-17T18:54:09.028439",
+  "sha256": "fe33eeb9ca2ac69389d1276e1ad868fd838e8094db9ad4721692bf8c3b7af9cd",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

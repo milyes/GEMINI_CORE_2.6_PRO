@@ -1,0 +1,15 @@
+{
+  "projet": "Boutique vêtements traditionnels",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-20T17:15:46.335294",
+  "sha256": "c06e8813a43660ebad97141cccda5b4f4e23f29f6857bc9d199da4698ba13005",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

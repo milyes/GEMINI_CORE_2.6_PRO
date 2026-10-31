@@ -1,0 +1,15 @@
+{
+  "projet": "Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG – 100% local, offline-first, Zero-Trust, exécution Termux-native, monétisation souveraine (cash/CCP/Baridimob), communication en Darija, cadre juridique minimal Loi 25 / RGPD par design, stack Python + FastAPI + SQLite + HTML/CSS/JS, MVP en 7 jours",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-17T20:12:13.582000",
+  "sha256": "2afd8d889392dda344024b3cee86017b5294d7ade5e8656525a491acab56a0a6",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

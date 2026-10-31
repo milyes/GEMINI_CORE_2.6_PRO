@@ -1,0 +1,29 @@
+{
+  "module": {
+    "name": "GEMINI CORE",
+    "version": "2.6 PRO",
+    "release_tag": "2.6.0",
+    "namespace": "ia22.core.cockpit.gemini",
+    "status": "Publication Officielle Sceau Verifie",
+    "release_date": "2025-09-01"
+  },
+  "author": {
+    "full_name": "Zoubirou Mohammed Ilyes",
+    "organization": "NetSecurePro",
+    "email": "milyes@netsecurepro.ca",
+    "orcid": "0009-0007-7571-3178"
+  },
+  "security": {
+    "seal_verified": true,
+    "rectification_applied": true,
+    "sovereignty_level": "local-first",
+    "network_policy": "restricted",
+    "sandbox": "ia22.sandbox.secure.v3"
+  },
+  "traceability": {
+    "sha256_pack_zip": "DOIT_ETRE_CALCULE_APRES_ZIP_FINAL",
+    "protocol": "SIGN_LOGIC",
+    "event_schema": "z-h202.ia",
+    "data_standard": "ISO_DOC_COMPLIANT_V1"
+  }
+}

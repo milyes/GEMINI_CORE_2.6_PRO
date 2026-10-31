@@ -1,0 +1,4 @@
+SHA256 du projet complet : 61516a886d30d066a4bb05cf2025e58d45d23ba3c82938795973b673a8f3ff8d
+Généré le               : 2026-08-17T21:42:02.716543
+Version                 : 2.6.1-Final
+Auteur                  : Zoubirou Mohammed Ilyes

@@ -1,0 +1,15 @@
+{
+  "projet": "Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-17T21:42:02.720506",
+  "sha256": "61516a886d30d066a4bb05cf2025e58d45d23ba3c82938795973b673a8f3ff8d",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

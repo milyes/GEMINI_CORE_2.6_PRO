@@ -1,0 +1,99 @@
+[
+  {
+    "agent": "Agent Archi",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Architecture",
+      "analyse": "Architecture technique souveraine pour : Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+      "stack_recommandee": [
+        "Python 3",
+        "FastAPI",
+        "SQLite",
+        "Termux-native",
+        "HTML/CSS/JS"
+      ],
+      "structure": [
+        "backend/",
+        "frontend/",
+        "docs/",
+        "scripts/",
+        "data/"
+      ],
+      "principes": [
+        "Offline-first",
+        "Zero-Trust",
+        "Local-only"
+      ]
+    },
+    "trace": "9841010d4f637d52..."
+  },
+  {
+    "agent": "Agent Juriste",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Juridique & Conformité",
+      "analyse": "Cadre légal minimal pour : Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+      "points_cles": [
+        "Données 100% locales (pas de cloud)",
+        "Licence souveraine / MIT adaptée",
+        "Mentions légales simplifiées",
+        "Respect RGPD par design (données ne quittent pas l'appareil)"
+      ],
+      "risques": [
+        "Très faible – exécution locale"
+      ]
+    },
+    "trace": "7da7d81a3243bdf4..."
+  },
+  {
+    "agent": "Agent Dev",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Développement",
+      "analyse": "Plan de développement pour : Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+      "etapes": [
+        "Jour 1-2 : Structure + API locale",
+        "Jour 3-4 : Interface Termux + Web minimal",
+        "Jour 5-7 : Tests + packaging"
+      ],
+      "langages": [
+        "Python",
+        "Bash",
+        "HTML/CSS/JS"
+      ],
+      "priorite": "MVP fonctionnel en 7 jours"
+    },
+    "trace": "5c9cadf54d8d4b8a..."
+  },
+  {
+    "agent": "Agent Paiement",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Monétisation",
+      "analyse": "Stratégie de monétisation souveraine pour : Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+      "modeles": [
+        "Freemium local",
+        "Paiement cash / CCP / BaridiMob",
+        "Abonnement mensuel hors-ligne"
+      ],
+      "recommandation": "Éviter les gateways internationaux au démarrage"
+    },
+    "trace": "8305fefa85b246d9..."
+  },
+  {
+    "agent": "Agent Marketing",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Marketing & Diffusion",
+      "analyse": "Stratégie marketing locale pour : Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard",
+      "canaux": [
+        "WhatsApp Business",
+        "Groupes Facebook/Telegram locaux",
+        "Bouche-à-oreille en Darija",
+        "Affiches et réseaux de proximité"
+      ],
+      "slogan": "« Agent IA anti-SSRF Azure AI Search. Bloque ::ffff:169.254.169.254 <1ms. API FastAPI, Logs JSON, Zero-Trust, Local, Termux. Nom: zcore_ssrf_guard – 100% local, 100% souverain »"
+    },
+    "trace": "b0e052dcf5a04504..."
+  }
+]

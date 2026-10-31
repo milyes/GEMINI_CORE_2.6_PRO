@@ -1,0 +1,15 @@
+{
+  "projet": "Livraison repas Darija",
+  "version_core": "2.6.1-Final",
+  "auteur": "Zoubirou Mohammed Ilyes",
+  "orcid": "0009-0007-7571-3178",
+  "timestamp": "2026-08-17T18:49:12.869159",
+  "sha256": "679044ce663cf1bf635474a4d98ab05fe63d7d3f5f4e7411ef34df6a78952790",
+  "agents": [
+    "Agent Archi",
+    "Agent Juriste",
+    "Agent Dev",
+    "Agent Paiement",
+    "Agent Marketing"
+  ]
+}

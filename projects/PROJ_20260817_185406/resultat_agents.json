@@ -1,0 +1,99 @@
+[
+  {
+    "agent": "Agent Archi",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Architecture",
+      "analyse": "Architecture technique souveraine pour : Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+      "stack_recommandee": [
+        "Python 3",
+        "FastAPI",
+        "SQLite",
+        "Termux-native",
+        "HTML/CSS/JS"
+      ],
+      "structure": [
+        "backend/",
+        "frontend/",
+        "docs/",
+        "scripts/",
+        "data/"
+      ],
+      "principes": [
+        "Offline-first",
+        "Zero-Trust",
+        "Local-only"
+      ]
+    },
+    "trace": "332ae626d172d7f7..."
+  },
+  {
+    "agent": "Agent Juriste",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Juridique & Conformité",
+      "analyse": "Cadre légal minimal pour : Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+      "points_cles": [
+        "Données 100% locales (pas de cloud)",
+        "Licence souveraine / MIT adaptée",
+        "Mentions légales simplifiées",
+        "Respect RGPD par design (données ne quittent pas l'appareil)"
+      ],
+      "risques": [
+        "Très faible – exécution locale"
+      ]
+    },
+    "trace": "21745601697ca119..."
+  },
+  {
+    "agent": "Agent Dev",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Développement",
+      "analyse": "Plan de développement pour : Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+      "etapes": [
+        "Jour 1-2 : Structure + API locale",
+        "Jour 3-4 : Interface Termux + Web minimal",
+        "Jour 5-7 : Tests + packaging"
+      ],
+      "langages": [
+        "Python",
+        "Bash",
+        "HTML/CSS/JS"
+      ],
+      "priorite": "MVP fonctionnel en 7 jours"
+    },
+    "trace": "5761d0bd91408f5f..."
+  },
+  {
+    "agent": "Agent Paiement",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Monétisation",
+      "analyse": "Stratégie de monétisation souveraine pour : Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+      "modeles": [
+        "Freemium local",
+        "Paiement cash / CCP / BaridiMob",
+        "Abonnement mensuel hors-ligne"
+      ],
+      "recommandation": "Éviter les gateways internationaux au démarrage"
+    },
+    "trace": "6cb744477dfc402f..."
+  },
+  {
+    "agent": "Agent Marketing",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Marketing & Diffusion",
+      "analyse": "Stratégie marketing locale pour : Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG.",
+      "canaux": [
+        "WhatsApp Business",
+        "Groupes Facebook/Telegram locaux",
+        "Bouche-à-oreille en Darija",
+        "Affiches et réseaux de proximité"
+      ],
+      "slogan": "« Agent IA de détection et mitigation SSRF pour pipeline Azure AI Search RAG. – 100% local, 100% souverain »"
+    },
+    "trace": "6e5cda3b3fc3799d..."
+  }
+]

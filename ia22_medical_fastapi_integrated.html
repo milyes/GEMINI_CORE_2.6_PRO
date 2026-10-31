@@ -68,7 +68,7 @@
   <script>
     // === CONFIGURATION BACKEND FASTAPI ===
     const FASTAPI_URL = "http://127.0.0.1:8000/ia/emprunt";  // Change en https://ton-domaine.com en prod
-    const BORROW_KEY = "ia22-emprunt-2025-zoubirou-secret"; // Clé d'emprunt (à sécuriser davantage en prod)
+    const BORROW_KEY = process.env.BORROW_KEY || ""; // NANS: Secret migré en env // Clé d'emprunt (à sécuriser davantage en prod)
 
     async function envoyer() {
       const input = document.getElementById("input").value.trim();

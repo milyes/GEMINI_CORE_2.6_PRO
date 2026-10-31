@@ -1,0 +1,89 @@
+[
+  {
+    "agent": "Agent Archi",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Architecture",
+      "analyse": "Architecture technique pour : Plateforme cours en Darija",
+      "stack_recommandee": [
+        "Python",
+        "FastAPI",
+        "SQLite",
+        "Termux-ready"
+      ],
+      "structure": [
+        "backend/",
+        "frontend/",
+        "docs/",
+        "scripts/"
+      ]
+    },
+    "trace": "061e9092d44f832c..."
+  },
+  {
+    "agent": "Agent Juriste",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Juridique",
+      "analyse": "Cadre légal pour : Plateforme cours en Darija",
+      "points_cles": [
+        "RGPD local",
+        "Conditions d'utilisation",
+        "Licence MIT/Souveraine"
+      ],
+      "risques": [
+        "Faible - projet local"
+      ]
+    },
+    "trace": "133a4f975ddf4826..."
+  },
+  {
+    "agent": "Agent Dev",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Développement",
+      "analyse": "Plan de développement pour : Plateforme cours en Darija",
+      "etapes": [
+        "MVP en 7 jours",
+        "Interface Termux + Web",
+        "API locale"
+      ],
+      "langages": [
+        "Python",
+        "HTML/CSS/JS",
+        "Bash"
+      ]
+    },
+    "trace": "cb5b4507588964d3..."
+  },
+  {
+    "agent": "Agent Paiement",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Paiement",
+      "analyse": "Stratégie monétisation pour : Plateforme cours en Darija",
+      "modeles": [
+        "Freemium",
+        "Paiement local (cash/CCP)",
+        "Abonnement mensuel"
+      ],
+      "recommandation": "Démarrer sans paiement en ligne (souveraineté)"
+    },
+    "trace": "1cb6a3eca8420a15..."
+  },
+  {
+    "agent": "Agent Marketing",
+    "statut": "terminé",
+    "artefact": {
+      "role": "Marketing",
+      "analyse": "Stratégie marketing pour : Plateforme cours en Darija",
+      "canaux": [
+        "WhatsApp Business",
+        "Réseaux locaux",
+        "Bouche-à-oreille Darija"
+      ],
+      "slogan": "« Plateforme cours en Darija – 100% local & souverain »"
+    },
+    "trace": "d1fc9907f5823c12..."
+  }
+]
