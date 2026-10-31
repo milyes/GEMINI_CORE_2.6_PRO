@@ -21,7 +21,7 @@
     "sandbox": "ia22.sandbox.secure.v3"
   },
   "traceability": {
-    "sha256_pack_zip": "DOIT_ETRE_CALCULE_APRES_ZIP_FINAL",
+    "sha256_pack_zip": "e53b57d2b93dc5af6802e3290d31727141a4d87b71729aeea00c0edd3a3c01c2",
     "protocol": "SIGN_LOGIC",
     "event_schema": "z-h202.ia",
     "data_standard": "ISO_DOC_COMPLIANT_V1"
